@@ -17,16 +17,14 @@ export interface IDragabbleLpProps {
     i: number;
 }
 
-type TFileState = string[];
+interface ILpState {
+    [key: string]: string[];
+}
 
-export const fileState = atom<TFileState>({
-    key: "fileState",
-    default: ["LP1", "LP2", "LP3"],
-});
-
-type TPlayerState = string[];
-
-export const playerState = atom<TPlayerState>({
-    key: "playerState",
-    default: ["LP4", "LP5"],
+export const lpState = atom<ILpState>({
+    key: "lpState",
+    default: {
+        file: ["LP1", "LP2", "LP3"],
+        player: ["LP4", "LP5"],
+    },
 });

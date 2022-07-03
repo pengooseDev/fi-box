@@ -1,14 +1,9 @@
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
-import {
-    fileDisplayAtom,
-    lpQueueDisplayAtom,
-    fileState,
-    playerState,
-} from "./atoms";
+import { fileDisplayAtom, lpQueueDisplayAtom, lpState } from "./atoms";
 import useSound from "use-sound";
 import bgCloseSFX from "./assets/audio/bgClose.mp3";
 import DragabbleLp from "./components/DraggableLp";
@@ -250,8 +245,7 @@ const LoFiCat = () => {
 
 function App() {
     //LpState
-    const [fileLp, setFileLp] = useRecoilState(fileState);
-    const [playerLp, setplayerLp] = useRecoilState(playerState);
+    const [lps, setLps] = useRecoilState(lpState);
 
     const [onClickSound] = useSound(onClickSFX);
     const [openSound] = useSound(openSoundSFX);
@@ -271,22 +265,6 @@ function App() {
     //
     //
     //
-
-    const onDragStart = (e: any) => {
-        console.log("dragStart");
-    };
-
-    const onDragEnd = ({ source, destination }: any) => {
-        if (!destination) return;
-        setFileLp((prev) => {
-            const newArray = [...prev];
-            const srcIndex = source.index;
-            const desIndex = destination?.index;
-            const dragData = newArray.splice(srcIndex, 1);
-            newArray.splice(desIndex, 0, dragData[0]);
-            return newArray;
-        });
-    };
 
     const lpDisplayToggle = () => {
         setFileDisplayToggle((prev) => !prev);
@@ -319,6 +297,20 @@ function App() {
         }
     };
 
+    const onDragStart = (e: any) => {
+        console.log("dragStart");
+    };
+
+    const onDragEnd = (info: DropResult) => {
+        const { source, destination, draggableId } = info;
+        if (!destination) return;
+        console.log(lps[destination?.droppableId]);
+        if (destination?.droppableId === source.droppableId) {
+            //same
+            //console.log(lps[destination.droppableId]);
+        }
+    };
+
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Wrapper>
@@ -338,14 +330,14 @@ function App() {
                 />
                 {fileDisplayToggle ? (
                     <FileContainer>
-                        <Droppable droppableId="File">
+                        <Droppable droppableId="file">
                             {(provided) => (
                                 //드로퍼블 child 시작
                                 <FileBoard
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                 >
-                                    {fileLp.map((v, i) => (
+                                    {lps["file"].map((v, i) => (
                                         <DragabbleLp
                                             v={v}
                                             i={i}
@@ -362,13 +354,13 @@ function App() {
                 {/* LP Board */}
                 {lpPlayerDisplay ? (
                     <LpPlayerContainer>
-                        <Droppable droppableId="Player">
+                        <Droppable droppableId="player">
                             {(provided) => (
                                 <PlayerBoard
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                 >
-                                    {playerLp.map((v, i) => (
+                                    {lps["player"].map((v, i) => (
                                         <DragabbleLp
                                             v={v}
                                             i={i}
