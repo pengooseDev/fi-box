@@ -3,12 +3,15 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
-import { fileDisplayAtom, lpQueueDisplayAtom, fileState } from "./atoms";
+import {
+    fileDisplayAtom,
+    lpQueueDisplayAtom,
+    fileState,
+    playerState,
+} from "./atoms";
 import useSound from "use-sound";
 import bgCloseSFX from "./assets/audio/bgClose.mp3";
-
-/* LpImg */
-import lpImg from "./assets/img/lp1.png";
+import DragabbleLp from "./components/DraggableLp";
 
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
@@ -37,6 +40,7 @@ import catSoundSFX9 from "./assets/audio/cat/cat9.mp3";
 import catSoundSFX10 from "./assets/audio/cat/cat10.mp3";
 import catSoundSFX11 from "./assets/audio/cat/cat11.mp3";
 import catSoundSFX12 from "./assets/audio/cat/cat12.mp3";
+import React from "react";
 
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
@@ -124,31 +128,6 @@ const FileBoard = styled.ul`
     transition: 0.2s ease-in-out;
 `;
 
-//LP
-const LpCard = styled.div`
-    //background: rgba(72, 69, 61, 0.7);
-
-    border-radius: 50%;
-    top: auto !important;
-    left: auto !important;
-    transition: 0.2s ease-in-out;
-    margin-bottom: 10px;
-`;
-
-const LpCardImg = styled.img.attrs({ src: lpImg })`
-    width: 100px;
-    padding: 5px;
-    border-radius: 50%;
-    transition: 0.2s ease-in-out;
-    filter: drop-shadow(5px 5px 0px #222);
-    :hover {
-        filter: drop-shadow(3px 3px 5px rgba(255, 255, 255, 1));
-    }
-    :active {
-        filter: drop-shadow(3px 3px 2px rgba(255, 255, 255, 0.8));
-    }
-`;
-
 //LP Board & Queue
 
 const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
@@ -172,7 +151,7 @@ const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
     }
 `;
 
-//이게 Toggle되는 Droppable창.
+//LpPlayer.
 const LpPlayerContainer = styled.div`
     position: absolute;
     top: 32%;
@@ -187,6 +166,18 @@ const LpPlayerContainer = styled.div`
     backdrop-filter: blur(2.5px);
     border-radius: 5px;
 `;
+
+const PlayerBoard = styled.div`
+    background: tomato;
+    position: absolute;
+    top: 32%;
+    right: 27%;
+    padding: 1%;
+
+    height: 20%;
+    width: 10%;
+`;
+
 /* Cat */
 // gif로 변경.
 const LoFiCatContainer = styled.img.attrs({ src: lofiCatImgSrc })`
@@ -252,22 +243,23 @@ const LoFiCat = () => {
 
     return <LoFiCatContainer onClick={cuteCat}></LoFiCatContainer>;
 };
+//
+//
+//
+//
 
 function App() {
-    const [fileLp, setFileLps] = useRecoilState(fileState);
+    //LpState
+    const [fileLp, setFileLp] = useRecoilState(fileState);
+    const [playerLp, setplayerLp] = useRecoilState(playerState);
+
     const [onClickSound] = useSound(onClickSFX);
     const [openSound] = useSound(openSoundSFX);
     const [closeSound] = useSound(closeSoundSFX);
     const [bgCloseSound] = useSound(bgCloseSFX);
-
     const [fileDisplayToggle, setFileDisplayToggle] =
         useRecoilState(fileDisplayAtom);
 
-    //
-    //
-    // CleanCode때 여기 통째로 LP Play Components로 옮기기.
-    //
-    //
     //LP Player Display Start
     const [lpPlayerDisplay, setLpPlayerDisplay] =
         useRecoilState(lpQueueDisplayAtom);
@@ -280,14 +272,20 @@ function App() {
     //
     //
 
-    const onDragStart = () => {
+    const onDragStart = (e: any) => {
         console.log("dragStart");
     };
 
-    const onDragEnd = (arg: any) => {
-        console.log(arg);
-        console.log(arg.source);
-        console.log(arg.destination);
+    const onDragEnd = ({ source, destination }: any) => {
+        if (!destination) return;
+        setFileLp((prev) => {
+            const newArray = [...prev];
+            const srcIndex = source.index;
+            const desIndex = destination?.index;
+            const dragData = newArray.splice(srcIndex, 1);
+            newArray.splice(desIndex, 0, dragData[0]);
+            return newArray;
+        });
     };
 
     const lpDisplayToggle = () => {
@@ -348,27 +346,11 @@ function App() {
                                     ref={provided.innerRef}
                                 >
                                     {fileLp.map((v, i) => (
-                                        <Draggable
-                                            draggableId={v}
-                                            index={i}
-                                            key={i}
-                                        >
-                                            {(provided) => (
-                                                <>
-                                                    <LpCard
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                    >
-                                                        <LpCardImg></LpCardImg>
-                                                        <div>
-                                                            value : {v}, index :
-                                                            {i}
-                                                        </div>
-                                                    </LpCard>
-                                                </>
-                                            )}
-                                        </Draggable>
+                                        <DragabbleLp
+                                            v={v}
+                                            i={i}
+                                            key={v}
+                                        ></DragabbleLp>
                                     ))}
                                     {provided.placeholder}
                                 </FileBoard>
@@ -379,7 +361,25 @@ function App() {
                 ) : null}
                 {/* LP Board */}
                 {lpPlayerDisplay ? (
-                    <LpPlayerContainer>123</LpPlayerContainer>
+                    <LpPlayerContainer>
+                        <Droppable droppableId="Player">
+                            {(provided) => (
+                                <PlayerBoard
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {playerLp.map((v, i) => (
+                                        <DragabbleLp
+                                            v={v}
+                                            i={i}
+                                            key={v}
+                                        ></DragabbleLp>
+                                    ))}
+                                    {provided.placeholder}
+                                </PlayerBoard>
+                            )}
+                        </Droppable>
+                    </LpPlayerContainer>
                 ) : null}
                 <LpPlayerImg onClick={lpPlayerClickHandler} />
                 <LoFiCat />
