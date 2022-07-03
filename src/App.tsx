@@ -117,7 +117,7 @@ const FileBoard = styled.ul`
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
     border-radius: 5px;
     padding: 10px;
     transition: 0.2s ease-in-out;
@@ -306,9 +306,32 @@ function App() {
         if (!destination) return;
         console.log(lps[destination?.droppableId]);
         if (destination?.droppableId === source.droppableId) {
-            //same
-            //console.log(lps[destination.droppableId]);
+            //동일한 Board 내에서 드랍하는 경우.
+            setLps((prev) => {
+                const newArray = [...lps[destination.droppableId]];
+                const targetLp = newArray.splice(source.index, 1)[0];
+                newArray.splice(destination.index, 0, targetLp);
+
+                return {
+                    ...prev,
+                    [destination.droppableId]: newArray,
+                };
+            });
         }
+
+        //다른 Board 내에서 드랍하는 경우.
+        setLps((prev) => {
+            const srcArray = [...lps[source.droppableId]];
+            const desArray = [...lps[destination.droppableId]];
+            const targetLp = srcArray.splice(source.index, 1)[0];
+            desArray.splice(destination.index, 0, targetLp);
+
+            return {
+                ...prev,
+                [source.droppableId]: srcArray,
+                [destination.droppableId]: desArray,
+            };
+        });
     };
 
     return (
