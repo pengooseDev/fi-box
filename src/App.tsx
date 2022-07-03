@@ -151,26 +151,19 @@ const LpPlayerContainer = styled.div`
     position: absolute;
     top: 32%;
     right: 27%;
-    padding: 1%;
-
-    //LP크기랑 맞추면 될 듯.
-    height: 20%;
-    width: 10%;
-
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(2.5px);
-    border-radius: 5px;
 `;
 
 const PlayerBoard = styled.div`
-    background: tomato;
     position: absolute;
     top: 32%;
     right: 27%;
     padding: 1%;
 
-    height: 20%;
-    width: 10%;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(2.5px);
+    border-radius: 5px;
+
+    //LP크기랑 맞추면 될 듯.
 `;
 
 /* Cat */
