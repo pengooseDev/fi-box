@@ -3,8 +3,12 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
-import { lpDisplayAtom } from "./atoms";
+import { fileDisplayAtom, lpQueueDisplayAtom, fileState } from "./atoms";
 import useSound from "use-sound";
+import bgCloseSFX from "./assets/audio/bgClose.mp3";
+
+/* LpImg */
+import lpImg from "./assets/img/lp1.png";
 
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
@@ -38,44 +42,52 @@ import catSoundSFX12 from "./assets/audio/cat/cat12.mp3";
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
 //key를 Index로 한 경우 Complie Err 발생.
 
+const disable = () => {
+    // To get the scroll position of current webpage
+    const TopScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const LeftScroll =
+        window.pageXOffset || document.documentElement.scrollLeft;
+
+    // if scroll happens, set it to the previous value
+    window.onscroll = function () {
+        window.scrollTo(LeftScroll, TopScroll);
+    };
+    console.log("disable Start");
+};
+
+const enable = () => {
+    window.onscroll = function () {};
+    console.log("able");
+};
+
 const Wrapper = styled.div`
     display: inline-block;
     position: relative;
-    background: tomato;
+    background: #180727;
 `;
 
 const BackImg = styled.img.attrs({ src: backgroundImg })`
     height: 100vh;
     //min-height: 800px;
-    min-height: 400px;
+    min-height: 700px;
 `;
 
 /* 여기서부터 File, LP판 Components */
-
-//폴더 컴포넌트
-const FileWrapper = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 10px;
-    height: 100%;
-    width: 100%;
-`;
 
 //폴더 이미지
 const FileImg = styled.img.attrs({ src: fileImg })`
     position: absolute;
     width: 6.3%;
     height: 12%;
-    top: 13%;
-    left: 23%;
+    top: 14%;
+    left: 24%;
 
     //prevent drag
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 
     //#1. hover했을 때 좌우 흔들리는 애니메이션 추가하기!!
     transition: 0.2s ease-in-out;
@@ -89,19 +101,52 @@ const FileImg = styled.img.attrs({ src: fileImg })`
     }
 `;
 
-//displayToggle LP 디스플레이.
-const FileDisplay = styled.ul`
-    background: rgba(255, 255, 255, 0.35);
+const FileContainer = styled.div`
+    position: absolute;
+    top: 14.2%;
+    left: 32.5%;
+`;
+
+const FileBoard = styled.ul`
+    z-index: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: auto;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+
     backdrop-filter: blur(4px);
     border-radius: 5px;
     padding: 10px;
-    width: 17%;
-    height: 23%;
+    transition: 0.2s ease-in-out;
+`;
 
-    position: absolute;
-    top: 14%;
-    left: 31%;
-    z-index: 0;
+//LP
+const LpCard = styled.div`
+    //background: rgba(72, 69, 61, 0.7);
+
+    border-radius: 50%;
+    top: auto !important;
+    left: auto !important;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 10px;
+`;
+
+const LpCardImg = styled.img.attrs({ src: lpImg })`
+    width: 100px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
+    filter: drop-shadow(5px 5px 0px #222);
+    :hover {
+        filter: drop-shadow(3px 3px 5px rgba(255, 255, 255, 1));
+    }
+    :active {
+        filter: drop-shadow(3px 3px 2px rgba(255, 255, 255, 0.8));
+    }
 `;
 
 //LP Board & Queue
@@ -117,29 +162,22 @@ const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
     height: 15.5%;
     width: 16.8%;
     border-radius: 30%;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
     :hover {
         cursor: pointer;
     }
 `;
 
-//이게 Droppable / Draggable
-const LPBoard = styled.div`
-    display: none;
+//이게 Toggle되는 Droppable창.
+const LpPlayerContainer = styled.div`
     position: absolute;
-    background: tomato;
-    opacity: 0.3;
-    bottom: 26%;
-    right: 25%;
-
-    height: 15%;
-    width: 16%;
-    border-radius: 30%;
-`;
-
-const LPQueueDisplay = styled.div`
-    position: absolute;
-    top: 34%;
+    top: 32%;
     right: 27%;
+    padding: 1%;
 
     //LP크기랑 맞추면 될 듯.
     height: 20%;
@@ -149,7 +187,6 @@ const LPQueueDisplay = styled.div`
     backdrop-filter: blur(2.5px);
     border-radius: 5px;
 `;
-
 /* Cat */
 // gif로 변경.
 const LoFiCatContainer = styled.img.attrs({ src: lofiCatImgSrc })`
@@ -160,6 +197,11 @@ const LoFiCatContainer = styled.img.attrs({ src: lofiCatImgSrc })`
     padding: 10px;
     width: 9%;
     height: 11%;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 
     :hover {
         cursor: pointer;
@@ -205,7 +247,6 @@ const LoFiCat = () => {
     const cuteCat = () => {
         //catSoundSFX;
         let randomInt = getRandomInt(1, 12);
-        console.log(randomInt);
         randomCatSFXArray[randomInt]();
     };
 
@@ -213,22 +254,44 @@ const LoFiCat = () => {
 };
 
 function App() {
+    const [fileLp, setFileLps] = useRecoilState(fileState);
     const [onClickSound] = useSound(onClickSFX);
     const [openSound] = useSound(openSoundSFX);
     const [closeSound] = useSound(closeSoundSFX);
+    const [bgCloseSound] = useSound(bgCloseSFX);
 
-    const [lpToggle, setLpToggle] = useRecoilState(lpDisplayAtom);
+    const [fileDisplayToggle, setFileDisplayToggle] =
+        useRecoilState(fileDisplayAtom);
+
+    //
+    //
+    // CleanCode때 여기 통째로 LP Play Components로 옮기기.
+    //
+    //
+    //LP Player Display Start
+    const [lpPlayerDisplay, setLpPlayerDisplay] =
+        useRecoilState(lpQueueDisplayAtom);
+
+    const lpPlayerClickHandler = () => {
+        setLpPlayerDisplay((prev) => !prev);
+    };
+    //LP Player Display End
+    //
+    //
+    //
 
     const onDragStart = () => {
         console.log("dragStart");
     };
 
-    const onDragEnd = () => {
-        console.log("dragEnd");
+    const onDragEnd = (arg: any) => {
+        console.log(arg);
+        console.log(arg.source);
+        console.log(arg.destination);
     };
 
     const lpDisplayToggle = () => {
-        setLpToggle((prev) => !prev);
+        setFileDisplayToggle((prev) => !prev);
     };
 
     const lpMouseDown = () => {
@@ -236,66 +299,89 @@ function App() {
     };
 
     const lpMouseUp = () => {
-        if (!lpToggle) {
+        if (!fileDisplayToggle) {
             return openSound();
         }
         return closeSound();
+    };
+
+    const backgroundClickHandler = () => {
+        if (fileDisplayToggle) {
+            bgCloseSound();
+            setFileDisplayToggle((prev) => !prev);
+            if (lpPlayerDisplay) {
+                return setLpPlayerDisplay((prev) => !prev);
+            }
+        }
+
+        if (lpPlayerDisplay) {
+            bgCloseSound();
+            setLpPlayerDisplay((prev) => !prev);
+            return;
+        }
     };
 
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Wrapper>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
-                <BackImg></BackImg>
+                <BackImg
+                    onClick={backgroundClickHandler}
+                    onDragStart={disable}
+                    onDragEnd={enable}
+                ></BackImg>
 
                 {/* absolute를 Wrapper에 걸고 아래 IMG랑 그 아래 FileDisplay에 relative 걸어보기. */}
                 {/*File board*/}
-                <FileWrapper>
-                    <FileImg
-                        onClick={lpDisplayToggle}
-                        onMouseDown={lpMouseDown}
-                        onMouseUp={lpMouseUp}
-                    />
-                    {lpToggle ? (
-                        <Droppable droppableId="LP">
+                <FileImg
+                    onClick={lpDisplayToggle}
+                    onMouseDown={lpMouseDown}
+                    onMouseUp={lpMouseUp}
+                />
+                {fileDisplayToggle ? (
+                    <FileContainer>
+                        <Droppable droppableId="File">
                             {(provided) => (
                                 //드로퍼블 child 시작
-                                <FileDisplay
+                                <FileBoard
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                 >
-                                    <Draggable draggableId="LP1" index={0}>
-                                        {(provided) => (
-                                            <li
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                LP1
-                                            </li>
-                                        )}
-                                    </Draggable>
-                                    <Draggable draggableId="LP2" index={2}>
-                                        {(provided) => (
-                                            <li
-                                                ref={provided.innerRef}
-                                                {...provided.dragHandleProps}
-                                                {...provided.draggableProps}
-                                            >
-                                                LP2
-                                            </li>
-                                        )}
-                                    </Draggable>
-                                </FileDisplay>
+                                    {fileLp.map((v, i) => (
+                                        <Draggable
+                                            draggableId={v}
+                                            index={i}
+                                            key={i}
+                                        >
+                                            {(provided) => (
+                                                <>
+                                                    <LpCard
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                    >
+                                                        <LpCardImg></LpCardImg>
+                                                        <div>
+                                                            value : {v}, index :
+                                                            {i}
+                                                        </div>
+                                                    </LpCard>
+                                                </>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </FileBoard>
                                 //드로퍼블 child 끝
                             )}
                         </Droppable>
-                    ) : null}
-                </FileWrapper>
+                    </FileContainer>
+                ) : null}
                 {/* LP Board */}
-                <LPQueueDisplay>123</LPQueueDisplay>
-                <LpPlayerImg />
-                <LPBoard></LPBoard>
+                {lpPlayerDisplay ? (
+                    <LpPlayerContainer>123</LpPlayerContainer>
+                ) : null}
+                <LpPlayerImg onClick={lpPlayerClickHandler} />
                 <LoFiCat />
             </Wrapper>
         </DragDropContext>

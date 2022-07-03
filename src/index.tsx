@@ -10,9 +10,11 @@ const root = ReactDOM.createRoot(
 const GlobalStyle = createGlobalStyle`
 
 body{
-    min-height: 800px;
+    overflow-y: hidden;
+    background: linear-gradient(30deg, #29046D, #2F0557);
     display: flex;
     justify-content: center;
+    background: #180727;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
