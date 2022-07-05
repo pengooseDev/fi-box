@@ -1,5 +1,11 @@
 import { atom } from "recoil";
 
+// playerQueueLengthProps
+export interface IPlayerQueueLength {
+    queueLength: number;
+    snapshot: any;
+}
+
 //Display Atom
 export const fileDisplayAtom = atom({
     key: "fileDisplayAtom",

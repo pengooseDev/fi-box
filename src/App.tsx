@@ -3,11 +3,15 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
-import { fileDisplayAtom, lpQueueDisplayAtom, lpState } from "./atoms";
+import {
+    fileDisplayAtom,
+    lpQueueDisplayAtom,
+    lpState,
+    IPlayerQueueLength,
+} from "./atoms";
 import useSound from "use-sound";
 import bgCloseSFX from "./assets/audio/bgClose.mp3";
 import DragabbleLp from "./components/DraggableLp";
-
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
 
@@ -35,29 +39,9 @@ import catSoundSFX9 from "./assets/audio/cat/cat9.mp3";
 import catSoundSFX10 from "./assets/audio/cat/cat10.mp3";
 import catSoundSFX11 from "./assets/audio/cat/cat11.mp3";
 import catSoundSFX12 from "./assets/audio/cat/cat12.mp3";
-import React from "react";
-
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
 //key를 Index로 한 경우 Complie Err 발생.
-
-const disable = () => {
-    // To get the scroll position of current webpage
-    const TopScroll = window.pageYOffset || document.documentElement.scrollTop;
-    const LeftScroll =
-        window.pageXOffset || document.documentElement.scrollLeft;
-
-    // if scroll happens, set it to the previous value
-    window.onscroll = function () {
-        window.scrollTo(LeftScroll, TopScroll);
-    };
-    console.log("disable Start");
-};
-
-const enable = () => {
-    window.onscroll = function () {};
-    console.log("able");
-};
 
 const Wrapper = styled.div`
     display: inline-block;
@@ -149,20 +133,33 @@ const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
 //LpPlayer.
 const LpPlayerContainer = styled.div`
     position: absolute;
+    width: 100%;
     top: 32%;
     right: 27%;
 `;
 
-const PlayerBoard = styled.div`
+const PlayerBoard = styled.div<IPlayerQueueLength>`
     position: absolute;
-    top: 32%;
-    right: 27%;
-    padding: 1%;
+    //Default
+    top: ${(props) => 190 + props.queueLength * -120}px;
+    /*Droppable일때 RBD는 board의 display가 아래로만 확장한다는 한계가 있음.
+    Hover로 top의 position을 처리할 경우, Draggable의 어디를 클릭하느냐에 따라 유의미한 오차가 발생.
+    따라서, props에서 draggingOver일 때, top의 position이 변하도록 구현. 
+    react-dnd쓰자..
+    */
+    top: ${(props) =>
+        props.snapshot.isDraggingOver
+            ? `${190 + (props.queueLength + 1) * -120}px`
+            : null};
+    right: 0%;
 
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(2.5px);
+    padding: 10px;
+    background: rgba(111, 111, 0, 0.3);
     border-radius: 5px;
-
+    transition: 0.09s ease-in-out;
+    background: ${(props) =>
+        props.snapshot.draggingFromThisWith ? "teal" : null};
+    width: ${(props) => (props.snapshot.draggingOverWith ? "200px" : null)};
     //LP크기랑 맞추면 될 듯.
 `;
 
@@ -290,8 +287,6 @@ function App() {
         }
     };
 
-    ///////////PreventScroll/////////////
-
     function disableScroll() {
         // Get the current page scroll position
         const scrollTop =
@@ -307,11 +302,9 @@ function App() {
     function enableScroll() {
         window.onscroll = function () {};
     }
-    ////////////////////////
 
     const onDragStart = (e: any) => {
         disableScroll();
-        console.log("dragStart");
     };
 
     const onDragEnd = (info: DropResult) => {
@@ -324,8 +317,6 @@ function App() {
                 const newArray = [...lps[source.droppableId]];
                 const targetLp = newArray.splice(source.index, 1);
                 newArray.splice(destination.index, 0, targetLp[0]);
-                console.log(newArray);
-                console.log(source.droppableId);
 
                 return {
                     ...prev,
@@ -333,7 +324,6 @@ function App() {
                 };
             });
         }
-        console.log("!!!", lps);
 
         //다른 Board 내에서 드랍하는 경우.
 
@@ -352,16 +342,46 @@ function App() {
             });
         }
     };
+    //
+    ///
+    //
+    //
+    //
+    //
+    //
+    //
+    ///
+    //
+    //
+    //
+    //
+    //
+    //
+    ///
+    //
+    //
+    //
+    //
+    //
+    //
+    ///
+    //
+    //
+    //
+    //
+    //
+    //
 
+    ///test
+    const snapshotClick = (snapshot: any, provided: any) => {
+        console.log(snapshot.draggingFromThisWith);
+        console.log(snapshot.draggingOverWith);
+    };
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Wrapper>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
-                <BackImg
-                    onClick={backgroundClickHandler}
-                    onDragStart={disable}
-                    onDragEnd={enable}
-                ></BackImg>
+                <BackImg onClick={backgroundClickHandler}></BackImg>
 
                 {/* absolute를 Wrapper에 걸고 아래 IMG랑 그 아래 FileDisplay에 relative 걸어보기. */}
                 {/*File board*/}
@@ -397,10 +417,16 @@ function App() {
                 {lpPlayerDisplay ? (
                     <LpPlayerContainer>
                         <Droppable droppableId="player">
-                            {(provided) => (
+                            {(provided, snapshot) => (
                                 <PlayerBoard
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
+                                    //@ts-ignore
+                                    queueLength={lps["player"].length}
+                                    snapshot={snapshot}
+                                    onClick={() => {
+                                        snapshotClick(snapshot, provided);
+                                    }}
                                 >
                                     {lps["player"].map((v, i) => (
                                         <DragabbleLp

@@ -10,5 +10,6 @@ declare module "styled-components" {
         accentColor: string;
         boardColor: string;
         cardColor: string;
+        queueLength: any;
     }
 }

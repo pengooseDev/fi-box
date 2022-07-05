@@ -23,10 +23,10 @@ const LpCardImg = styled.img.attrs({ src: lpImg })`
     transition: 0.2s ease-in-out;
     filter: drop-shadow(5px 5px 0px #222);
     :hover {
-        filter: drop-shadow(3px 3px 5px rgba(255, 255, 255, 1));
+        filter: drop-shadow(3px 3px 8px rgba(255, 53, 104, 0.6));
     }
     :active {
-        filter: drop-shadow(3px 3px 2px rgba(255, 255, 255, 0.8));
+        filter: drop-shadow(3px 3px 0px rgba(255, 53, 104, 0.8));
     }
 `;
 
@@ -41,9 +41,6 @@ const DragabbleLp = ({ v, i }: IDragabbleLpProps) => {
                         {...provided.dragHandleProps}
                     >
                         <LpCardImg></LpCardImg>
-                        <div>
-                            value : {v}, index :{i}
-                        </div>
                     </LpCard>
                 </>
             )}
