@@ -107,8 +107,8 @@ const FileContainer = styled.div`
 `;
 
 const FileBoard = styled.ul`
-    z-index: 0;
     position: absolute;
+    z-index: 1;
     top: 0px;
     left: 0px;
     width: auto;
@@ -149,6 +149,7 @@ const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
 //LpPlayer.
 const LpPlayerContainer = styled.div`
     position: absolute;
+    z-index: 0;
     top: 32%;
     right: 27%;
 `;
@@ -297,34 +298,39 @@ function App() {
     const onDragEnd = (info: DropResult) => {
         const { source, destination, draggableId } = info;
         if (!destination) return;
-        console.log(lps[destination?.droppableId]);
+
         if (destination?.droppableId === source.droppableId) {
-            //동일한 Board 내에서 드랍하는 경우.
             setLps((prev) => {
-                const newArray = [...lps[destination.droppableId]];
-                const targetLp = newArray.splice(source.index, 1)[0];
-                newArray.splice(destination.index, 0, targetLp);
+                const newArray = [...lps[source.droppableId]];
+                const targetLp = newArray.splice(source.index, 1);
+                newArray.splice(destination.index, 0, targetLp[0]);
+                console.log(newArray);
+                console.log(source.droppableId);
 
                 return {
                     ...prev,
-                    [destination.droppableId]: newArray,
+                    [source.droppableId]: newArray,
                 };
             });
         }
+        console.log("!!!", lps);
 
         //다른 Board 내에서 드랍하는 경우.
-        setLps((prev) => {
-            const srcArray = [...lps[source.droppableId]];
-            const desArray = [...lps[destination.droppableId]];
-            const targetLp = srcArray.splice(source.index, 1)[0];
-            desArray.splice(destination.index, 0, targetLp);
 
-            return {
-                ...prev,
-                [source.droppableId]: srcArray,
-                [destination.droppableId]: desArray,
-            };
-        });
+        if (destination?.droppableId !== source.droppableId) {
+            setLps((prev) => {
+                const srcArray = [...lps[source.droppableId]];
+                const desArray = [...lps[destination.droppableId]];
+                const targetLp = srcArray.splice(source.index, 1)[0];
+                desArray.splice(destination.index, 0, targetLp);
+
+                return {
+                    ...prev,
+                    [source.droppableId]: srcArray,
+                    [destination.droppableId]: desArray,
+                };
+            });
+        }
     };
 
     return (

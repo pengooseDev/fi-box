@@ -9,7 +9,6 @@ import lpImg from "../assets/img/lp1.png";
 //LP
 const LpCard = styled.div`
     //background: rgba(72, 69, 61, 0.7);
-
     border-radius: 50%;
     top: auto !important;
     left: auto !important;
@@ -33,7 +32,7 @@ const LpCardImg = styled.img.attrs({ src: lpImg })`
 
 const DragabbleLp = ({ v, i }: IDragabbleLpProps) => {
     return (
-        <Draggable draggableId={v} index={i} key={v}>
+        <Draggable draggableId={v + ""} index={i} key={v}>
             {(provided) => (
                 <>
                     <LpCard
