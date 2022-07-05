@@ -107,8 +107,8 @@ const FileContainer = styled.div`
 `;
 
 const FileBoard = styled.ul`
+    z-index: 0;
     position: absolute;
-    z-index: 1;
     top: 0px;
     left: 0px;
     width: auto;
@@ -149,7 +149,6 @@ const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
 //LpPlayer.
 const LpPlayerContainer = styled.div`
     position: absolute;
-    z-index: 0;
     top: 32%;
     right: 27%;
 `;
@@ -291,12 +290,33 @@ function App() {
         }
     };
 
+    ///////////PreventScroll/////////////
+
+    function disableScroll() {
+        // Get the current page scroll position
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft;
+        // if any scroll is attempted, set this to the previous value
+        window.onscroll = function () {
+            window.scrollTo(scrollLeft, scrollTop);
+        };
+    }
+
+    function enableScroll() {
+        window.onscroll = function () {};
+    }
+    ////////////////////////
+
     const onDragStart = (e: any) => {
+        disableScroll();
         console.log("dragStart");
     };
 
     const onDragEnd = (info: DropResult) => {
-        const { source, destination, draggableId } = info;
+        enableScroll();
+        const { source, destination } = info;
         if (!destination) return;
 
         if (destination?.droppableId === source.droppableId) {

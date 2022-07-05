@@ -32,7 +32,7 @@ const LpCardImg = styled.img.attrs({ src: lpImg })`
 
 const DragabbleLp = ({ v, i }: IDragabbleLpProps) => {
     return (
-        <Draggable draggableId={v + ""} index={i} key={v}>
+        <Draggable draggableId={v} index={i} key={v}>
             {(provided) => (
                 <>
                     <LpCard
