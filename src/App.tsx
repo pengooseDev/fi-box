@@ -149,7 +149,9 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
     */
     top: ${(props) =>
         props.snapshot.isDraggingOver
-            ? `${190 + (props.queueLength + 1) * -120}px`
+            ? props.snapshot.draggingFromThisWith
+                ? null
+                : `${190 + (props.queueLength + 1) * -120}px`
             : null};
     right: 0%;
 
@@ -157,9 +159,6 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
     background: rgba(111, 111, 0, 0.3);
     border-radius: 5px;
     transition: 0.09s ease-in-out;
-    background: ${(props) =>
-        props.snapshot.draggingFromThisWith ? "teal" : null};
-    width: ${(props) => (props.snapshot.draggingOverWith ? "200px" : null)};
     //LP크기랑 맞추면 될 듯.
 `;
 
