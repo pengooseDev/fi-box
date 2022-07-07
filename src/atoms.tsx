@@ -4,6 +4,7 @@ import { atom } from "recoil";
 export interface IPlayerQueueLength {
     queueLength: number;
     snapshot: any;
+    lpPlayerDisplay: boolean;
 }
 
 //Display Atom
@@ -21,6 +22,7 @@ export const lpQueueDisplayAtom = atom({
 export interface IDragabbleLpProps {
     v: string;
     i: number;
+    providedInfo?: any;
 }
 
 interface ILpState {

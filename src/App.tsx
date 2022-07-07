@@ -20,8 +20,12 @@ import onClickSFX from "./assets/audio/onDown.mp3";
 import openSoundSFX from "./assets/audio/onUpOpen.mp3";
 import closeSoundSFX from "./assets/audio/onUpClose.mp3";
 
-/* LPqueue */
+/* LpPlayer */
 import LpPlayerImgSrc from "./assets/img/LpPlayer.png";
+import playerDownSFX from "./assets/audio/playerClick.mp3";
+import playerUpOpenSFX from "./assets/audio/playerUpOpen.mp3";
+import playerUpCloseSFX from "./assets/audio/playerUpClose.mp3";
+import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 
 /* Lo-fi Cat */
 import lofiCatImgSrc from "./assets/img/goYangE.png";
@@ -91,7 +95,7 @@ const FileContainer = styled.div`
 `;
 
 const FileBoard = styled.ul`
-    z-index: 0;
+    z-index: 2;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -104,14 +108,15 @@ const FileBoard = styled.ul`
     backdrop-filter: blur(3px);
     border-radius: 5px;
     padding: 10px;
-    transition: 0.2s ease-in-out;
+    min-width: 110px;
+    min-height: 120px;
+    //transition: 0.2s ease-in-out;
 `;
 
 //LP Board & Queue
 
 const LpPlayerImg = styled.img.attrs({ src: LpPlayerImgSrc })`
     position: absolute;
-    background: bisque;
     padding: 1% 0px;
     opacity: 0.3;
     bottom: 24%;
@@ -139,26 +144,34 @@ const LpPlayerContainer = styled.div`
 `;
 
 const PlayerBoard = styled.div<IPlayerQueueLength>`
-    position: absolute;
+    position: fixed;
+
+    z-index: 3;
     //Default
-    top: ${(props) => 190 + props.queueLength * -120}px;
     /*Droppable일때 RBD는 board의 display가 아래로만 확장한다는 한계가 있음.
     Hover로 top의 position을 처리할 경우, Draggable의 어디를 클릭하느냐에 따라 유의미한 오차가 발생.
     따라서, props에서 draggingOver일 때, top의 position이 변하도록 구현. 
     react-dnd쓰자..
     */
     top: ${(props) =>
+        props.queueLength ? 480 + props.queueLength * -112.5 : 368}px;
+
+    top: ${(props) =>
         props.snapshot.isDraggingOver
             ? props.snapshot.draggingFromThisWith
                 ? null
-                : `${190 + (props.queueLength + 1) * -120}px`
+                : `${480 + (props.queueLength + 1) * -112.5}px`
             : null};
-    right: 0%;
+
+    right: ${(props) => (props.lpPlayerDisplay ? "0px" : "-130px")};
 
     padding: 10px;
-    background: rgba(111, 111, 0, 0.3);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     transition: 0.09s ease-in-out;
+    min-width: 110px;
+    min-height: 120px;
+
     //LP크기랑 맞추면 될 듯.
 `;
 
@@ -227,10 +240,25 @@ const LoFiCat = () => {
 
     return <LoFiCatContainer onClick={cuteCat}></LoFiCatContainer>;
 };
+
 //
 //
 //
-//
+
+const LpPlayerDrop = styled.div`
+    position: absolute;
+    padding: 1% 0px;
+    opacity: 0.3;
+    bottom: 24%;
+    right: 25.2%;
+
+    height: 15.5%;
+    width: 16.8%;
+    border-radius: 30%;
+    :hover {
+        cursor: pointer;
+    }
+`;
 
 function App() {
     //LpState
@@ -244,12 +272,29 @@ function App() {
         useRecoilState(fileDisplayAtom);
 
     //LP Player Display Start
+    const [playerDown] = useSound(playerDownSFX);
+    const [playerUpOpen] = useSound(playerUpOpenSFX);
+    const [playerUpClose] = useSound(playerUpCloseSFX);
+    const [bgplayerClose] = useSound(bgplayerCloseSFX);
+
     const [lpPlayerDisplay, setLpPlayerDisplay] =
         useRecoilState(lpQueueDisplayAtom);
 
     const lpPlayerClickHandler = () => {
         setLpPlayerDisplay((prev) => !prev);
     };
+
+    const playerMouseDown = () => {
+        return playerDown();
+    };
+
+    const playerMouseUp = () => {
+        if (!lpPlayerDisplay) {
+            return playerUpOpen();
+        }
+        return playerUpClose();
+    };
+
     //LP Player Display End
     //
     //
@@ -275,18 +320,19 @@ function App() {
             bgCloseSound();
             setFileDisplayToggle((prev) => !prev);
             if (lpPlayerDisplay) {
+                bgplayerClose();
                 return setLpPlayerDisplay((prev) => !prev);
             }
         }
 
         if (lpPlayerDisplay) {
-            bgCloseSound();
+            bgplayerClose();
             setLpPlayerDisplay((prev) => !prev);
             return;
         }
     };
 
-    function disableScroll() {
+    const disableScroll = () => {
         // Get the current page scroll position
         const scrollTop =
             window.pageYOffset || document.documentElement.scrollTop;
@@ -296,11 +342,11 @@ function App() {
         window.onscroll = function () {
             window.scrollTo(scrollLeft, scrollTop);
         };
-    }
+    };
 
-    function enableScroll() {
+    const enableScroll = () => {
         window.onscroll = function () {};
-    }
+    };
 
     const onDragStart = (e: any) => {
         disableScroll();
@@ -341,41 +387,7 @@ function App() {
             });
         }
     };
-    //
-    ///
-    //
-    //
-    //
-    //
-    //
-    //
-    ///
-    //
-    //
-    //
-    //
-    //
-    //
-    ///
-    //
-    //
-    //
-    //
-    //
-    //
-    ///
-    //
-    //
-    //
-    //
-    //
-    //
 
-    ///test
-    const snapshotClick = (snapshot: any, provided: any) => {
-        console.log(snapshot.draggingFromThisWith);
-        console.log(snapshot.draggingOverWith);
-    };
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Wrapper>
@@ -394,6 +406,7 @@ function App() {
                         <Droppable droppableId="file">
                             {(provided) => (
                                 //드로퍼블 child 시작
+
                                 <FileBoard
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
@@ -413,34 +426,47 @@ function App() {
                     </FileContainer>
                 ) : null}
                 {/* LP Board */}
-                {lpPlayerDisplay ? (
-                    <LpPlayerContainer>
-                        <Droppable droppableId="player">
-                            {(provided, snapshot) => (
-                                <PlayerBoard
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                    //@ts-ignore
-                                    queueLength={lps["player"].length}
-                                    snapshot={snapshot}
-                                    onClick={() => {
-                                        snapshotClick(snapshot, provided);
-                                    }}
-                                >
-                                    {lps["player"].map((v, i) => (
-                                        <DragabbleLp
-                                            v={v}
-                                            i={i}
-                                            key={v}
-                                        ></DragabbleLp>
-                                    ))}
-                                    {provided.placeholder}
-                                </PlayerBoard>
-                            )}
-                        </Droppable>
-                    </LpPlayerContainer>
-                ) : null}
-                <LpPlayerImg onClick={lpPlayerClickHandler} />
+                <LpPlayerContainer>
+                    <Droppable droppableId="player">
+                        {(provided, snapshot) => (
+                            <PlayerBoard
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                //@ts-ignore
+                                queueLength={lps["player"].length}
+                                snapshot={snapshot}
+                                lpPlayerDisplay={lpPlayerDisplay}
+                            >
+                                {lps["player"].map((v, i) => (
+                                    <DragabbleLp
+                                        v={v}
+                                        i={i}
+                                        key={v}
+                                        providedInfo={provided}
+                                    ></DragabbleLp>
+                                ))}
+                                {provided.placeholder}
+                            </PlayerBoard>
+                        )}
+                    </Droppable>
+                </LpPlayerContainer>
+                <LpPlayerDrop>
+                    <Droppable droppableId="player">
+                        {(provided, snapshot) => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </LpPlayerDrop>
+                <LpPlayerImg
+                    onClick={lpPlayerClickHandler}
+                    onMouseDown={playerMouseDown}
+                    onMouseUp={playerMouseUp}
+                />
                 <LoFiCat />
             </Wrapper>
         </DragDropContext>
