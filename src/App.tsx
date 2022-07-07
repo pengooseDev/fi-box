@@ -27,6 +27,9 @@ import playerUpOpenSFX from "./assets/audio/playerUpOpen.mp3";
 import playerUpCloseSFX from "./assets/audio/playerUpClose.mp3";
 import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 
+//soundBox
+import SoundBox from "./components/soundFunc";
+
 /* Lo-fi Cat */
 import lofiCatImgSrc from "./assets/img/goYangE.png";
 
@@ -43,6 +46,7 @@ import catSoundSFX9 from "./assets/audio/cat/cat9.mp3";
 import catSoundSFX10 from "./assets/audio/cat/cat10.mp3";
 import catSoundSFX11 from "./assets/audio/cat/cat11.mp3";
 import catSoundSFX12 from "./assets/audio/cat/cat12.mp3";
+
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
 //key를 Index로 한 경우 Complie Err 발생.
@@ -277,6 +281,7 @@ function App() {
     const [playerUpClose] = useSound(playerUpCloseSFX);
     const [bgplayerClose] = useSound(bgplayerCloseSFX);
 
+    //Mel
     const [lpPlayerDisplay, setLpPlayerDisplay] =
         useRecoilState(lpQueueDisplayAtom);
 
@@ -390,6 +395,7 @@ function App() {
 
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+            <SoundBox />
             <Wrapper>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
                 <BackImg onClick={backgroundClickHandler}></BackImg>
