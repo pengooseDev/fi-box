@@ -454,7 +454,7 @@ function App() {
 
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-            <SoundBox />
+            {welcomeDisplay ? null : <SoundBox />}
             <Wrapper>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
                 <BackImg onClick={backgroundClickHandler}></BackImg>
