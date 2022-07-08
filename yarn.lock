@@ -8805,7 +8805,12 @@
   dependencies:
     "picomatch" "^2.2.1"
 
-"recoil@^0.7.4":
+"recoil-persist@^4.2.0":
+  "integrity" "sha512-MHVfML9GxJP3RpkKR4F5rp7DtvzIvjWhowtMao/b7h2k4afMio/4sMAdUtltIrDaeVegH0Iga8Sx5XQ3oD7CzA=="
+  "resolved" "https://registry.npmjs.org/recoil-persist/-/recoil-persist-4.2.0.tgz"
+  "version" "4.2.0"
+
+"recoil@^0.7.2", "recoil@^0.7.4":
   "integrity" "sha512-sCXvQGMfSprkNU4ZRkJV4B0qFQSURJMgsICqY1952WRlg66NMwYqi6n67vhnhn0qw4zHU1gHXJuMvRDaiRNFZw=="
   "resolved" "https://registry.npmjs.org/recoil/-/recoil-0.7.4.tgz"
   "version" "0.7.4"

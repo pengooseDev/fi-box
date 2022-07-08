@@ -1,9 +1,10 @@
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
 import {
+    welcomeDisplayAtom,
     fileDisplayAtom,
     lpQueueDisplayAtom,
     lpState,
@@ -14,6 +15,9 @@ import bgCloseSFX from "./assets/audio/bgClose.mp3";
 import DragabbleLp from "./components/DraggableLp";
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
+
+//welcome
+import cassetteSFX from "./assets/audio/cassette.mp3";
 
 // fileBoard sound
 import onClickSFX from "./assets/audio/onDown.mp3";
@@ -264,9 +268,57 @@ const LpPlayerDrop = styled.div`
     }
 `;
 
+//
+//
+//
+interface IWelcomeBtn {
+    welcomeDisplay: boolean;
+}
+
+const WelcomeBtn = styled.div<IWelcomeBtn>`
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s ease-in-out;
+    ${(props) =>
+        props?.welcomeDisplay
+            ? css`
+                  opacity: 1;
+              `
+            : css`
+                  opacity: 0;
+                  visibility: hidden;
+              `};
+`;
+
+const WelcomeLabel = styled.div`
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 45px;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.7);
+
+    top: 30%;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0px 0px 25px black;
+    width: 100%;
+    height: 33%;
+`;
+
 function App() {
     //LpState
     const [lps, setLps] = useRecoilState(lpState);
+    //welcomeDisplay
+    const [welcomeDisplay, setWelcomeDisplay] =
+        useRecoilState(welcomeDisplayAtom);
+    const [cassetteSound] = useSound(cassetteSFX);
 
     const [onClickSound] = useSound(onClickSFX);
     const [openSound] = useSound(openSoundSFX);
@@ -280,6 +332,13 @@ function App() {
     const [playerUpOpen] = useSound(playerUpOpenSFX);
     const [playerUpClose] = useSound(playerUpCloseSFX);
     const [bgplayerClose] = useSound(bgplayerCloseSFX);
+
+    const welcomeClickHandler = () => {
+        if (welcomeDisplay) {
+            cassetteSound();
+        }
+        setWelcomeDisplay((prev) => !prev);
+    };
 
     //Mel
     const [lpPlayerDisplay, setLpPlayerDisplay] =
@@ -474,6 +533,12 @@ function App() {
                     onMouseUp={playerMouseUp}
                 />
                 <LoFiCat />
+                <WelcomeBtn
+                    onClick={welcomeClickHandler}
+                    welcomeDisplay={welcomeDisplay}
+                >
+                    <WelcomeLabel>Click Me!</WelcomeLabel>
+                </WelcomeBtn>
             </Wrapper>
         </DragDropContext>
     );

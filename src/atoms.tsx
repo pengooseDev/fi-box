@@ -1,5 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
+const { persistAtom } = recoilPersist();
 // playerQueueLengthProps
 export interface IPlayerQueueLength {
     queueLength: number;
@@ -8,6 +10,12 @@ export interface IPlayerQueueLength {
 }
 
 //Display Atom
+
+export const welcomeDisplayAtom = atom({
+    key: "welcomeDisplayAtom",
+    default: true,
+});
+
 export const fileDisplayAtom = atom({
     key: "fileDisplayAtom",
     default: false,
@@ -35,4 +43,5 @@ export const lpState = atom<ILpState>({
         file: ["LP1", "LP2", "LP3"],
         player: ["LP4", "LP5"],
     },
+    effects_UNSTABLE: [persistAtom],
 });
