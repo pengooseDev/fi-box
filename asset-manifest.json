@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.js": "/fi-box/static/js/main.d398e70d.js",
+    "static/js/845.8c0244ed.chunk.js": "/fi-box/static/js/845.8c0244ed.chunk.js",
+    "static/media/background.png": "/fi-box/static/media/background.6c60106a97d3effb8994.png",
+    "static/media/mel1.mp3": "/fi-box/static/media/mel1.b57edc2053ba4571645b.mp3",
+    "static/media/mel3.mp3": "/fi-box/static/media/mel3.b298ce95688889bd68f5.mp3",
+    "static/media/mel4.mp3": "/fi-box/static/media/mel4.c9b2eba8a826705ad1d9.mp3",
+    "static/media/mel5.mp3": "/fi-box/static/media/mel5.7e8e2bd8f658670c8a0c.mp3",
+    "static/media/lp1.png": "/fi-box/static/media/lp1.c5c348e91bcd1c7045de.png",
+    "static/media/LpPlayer.png": "/fi-box/static/media/LpPlayer.f873b220076acbf97964.png",
+    "static/media/mel2.mp3": "/fi-box/static/media/mel2.5b17704a4ff9220dbf9b.mp3",
+    "static/media/cat1.mp3": "/fi-box/static/media/cat1.d3cd3f1d68f7081719ec.mp3",
+    "static/media/cat10.mp3": "/fi-box/static/media/cat10.daa6f3b0a6135d8c79fe.mp3",
+    "static/media/cat11.mp3": "/fi-box/static/media/cat11.81b275e174b9f567443c.mp3",
+    "static/media/cat12.mp3": "/fi-box/static/media/cat12.d07ec05284074c6193d0.mp3",
+    "static/media/cat2.mp3": "/fi-box/static/media/cat2.161f22fa56b835c82703.mp3",
+    "static/media/cat3.mp3": "/fi-box/static/media/cat3.6291d7d9138a4fe3342c.mp3",
+    "static/media/cat4.mp3": "/fi-box/static/media/cat4.7baaa70ab37ab1bd3686.mp3",
+    "static/media/cat5.mp3": "/fi-box/static/media/cat5.a0d67efc987f5af0e8a7.mp3",
+    "static/media/cat6.mp3": "/fi-box/static/media/cat6.015a0de1c2d5877c5cee.mp3",
+    "static/media/cat7.mp3": "/fi-box/static/media/cat7.369433d9d2cb550c4399.mp3",
+    "static/media/cat8.mp3": "/fi-box/static/media/cat8.070af9326d7e97be68ed.mp3",
+    "static/media/cat9.mp3": "/fi-box/static/media/cat9.ffb1d8efdf50a24719dc.mp3",
+    "static/media/goYangE.png": "/fi-box/static/media/goYangE.71e70a1992cb1767590b.png",
+    "static/media/cassette.mp3": "/fi-box/static/media/cassette.d3bc19f451cbd6b7c8a4.mp3",
+    "static/media/file1.png": "/fi-box/static/media/file1.18c57d1436f726ff183c.png",
+    "static/media/bgPlayerClose.mp3": "/fi-box/static/media/bgPlayerClose.f0144b764e50c7e07bcc.mp3",
+    "static/media/bgClose.mp3": "/fi-box/static/media/bgClose.79a4378318302395dc75.mp3",
+    "static/media/onDown.mp3": "/fi-box/static/media/onDown.ba65c8fb63df3ae116ed.mp3",
+    "static/media/onUpClose.mp3": "/fi-box/static/media/onUpClose.1865de45828eeb9d3453.mp3",
+    "static/media/onUpOpen.mp3": "/fi-box/static/media/onUpOpen.72bdf561674001351f28.mp3",
+    "static/media/playerClick.mp3": "/fi-box/static/media/playerClick.0ceeef5c26a83184a797.mp3",
+    "static/media/playerUpClose.mp3": "/fi-box/static/media/playerUpClose.af558a961b27416039f4.mp3",
+    "static/media/playerUpOpen.mp3": "/fi-box/static/media/playerUpOpen.4dd28713c112b2390250.mp3",
+    "index.html": "/fi-box/index.html",
+    "main.d398e70d.js.map": "/fi-box/static/js/main.d398e70d.js.map",
+    "845.8c0244ed.chunk.js.map": "/fi-box/static/js/845.8c0244ed.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d398e70d.js"
+  ]
+}
