@@ -50,8 +50,10 @@ const soundHandler = () => {
     }
 };
 
-//90BPM 4마디 10.66초
-setInterval(soundHandler, 10660);
+//90BPM 4var 10.66s
+setInterval(soundHandler, 11290);
+
+//85BPM 4var 11.29s
 
 const SoundBox = () => {
     const [mel1] = useSound(mel1SFX);
