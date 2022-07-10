@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.js": "/fi-box/static/js/main.d398e70d.js",
+    "main.js": "/fi-box/static/js/main.660c3409.js",
     "static/js/845.8c0244ed.chunk.js": "/fi-box/static/js/845.8c0244ed.chunk.js",
     "static/media/background.png": "/fi-box/static/media/background.6c60106a97d3effb8994.png",
-    "static/media/mel1.mp3": "/fi-box/static/media/mel1.b57edc2053ba4571645b.mp3",
-    "static/media/mel3.mp3": "/fi-box/static/media/mel3.b298ce95688889bd68f5.mp3",
-    "static/media/mel4.mp3": "/fi-box/static/media/mel4.c9b2eba8a826705ad1d9.mp3",
-    "static/media/mel5.mp3": "/fi-box/static/media/mel5.7e8e2bd8f658670c8a0c.mp3",
+    "static/media/mel2.mp3": "/fi-box/static/media/mel2.551661ea2cace81ac33d.mp3",
+    "static/media/mel4.mp3": "/fi-box/static/media/mel4.e178970d8d0b2a311bc4.mp3",
+    "static/media/mel3.mp3": "/fi-box/static/media/mel3.058fa77a1fb83d949c61.mp3",
+    "static/media/mel5.mp3": "/fi-box/static/media/mel5.5edfbf1575ef3b2c3f26.mp3",
+    "static/media/mel1.mp3": "/fi-box/static/media/mel1.9076ce49930d4c027fe8.mp3",
+    "static/media/mel7.mp3": "/fi-box/static/media/mel7.26de48306fe52cb8b463.mp3",
+    "static/media/mel6.mp3": "/fi-box/static/media/mel6.904f78607eb981fd695b.mp3",
     "static/media/lp1.png": "/fi-box/static/media/lp1.c5c348e91bcd1c7045de.png",
     "static/media/LpPlayer.png": "/fi-box/static/media/LpPlayer.f873b220076acbf97964.png",
-    "static/media/mel2.mp3": "/fi-box/static/media/mel2.5b17704a4ff9220dbf9b.mp3",
     "static/media/cat1.mp3": "/fi-box/static/media/cat1.d3cd3f1d68f7081719ec.mp3",
     "static/media/cat10.mp3": "/fi-box/static/media/cat10.daa6f3b0a6135d8c79fe.mp3",
     "static/media/cat11.mp3": "/fi-box/static/media/cat11.81b275e174b9f567443c.mp3",
@@ -34,10 +36,10 @@
     "static/media/playerUpClose.mp3": "/fi-box/static/media/playerUpClose.af558a961b27416039f4.mp3",
     "static/media/playerUpOpen.mp3": "/fi-box/static/media/playerUpOpen.4dd28713c112b2390250.mp3",
     "index.html": "/fi-box/index.html",
-    "main.d398e70d.js.map": "/fi-box/static/js/main.d398e70d.js.map",
+    "main.660c3409.js.map": "/fi-box/static/js/main.660c3409.js.map",
     "845.8c0244ed.chunk.js.map": "/fi-box/static/js/845.8c0244ed.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.d398e70d.js"
+    "static/js/main.660c3409.js"
   ]
 }
