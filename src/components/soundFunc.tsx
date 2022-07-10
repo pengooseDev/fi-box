@@ -1,10 +1,10 @@
 import React from "react";
 import useSound from "use-sound";
-import mel1SFX from "../assets/audio/mel1.mp3";
-import mel2SFX from "../assets/audio/mel2.mp3";
-import mel3SFX from "../assets/audio/mel3.mp3";
-import mel4SFX from "../assets/audio/mel4.mp3";
-import mel5SFX from "../assets/audio/mel5.mp3";
+import mel1SFX from "../assets/audio/lp/mel1.mp3";
+import mel2SFX from "../assets/audio/lp/mel2.mp3";
+import mel3SFX from "../assets/audio/lp/mel3.mp3";
+import mel4SFX from "../assets/audio/lp/mel4.mp3";
+import mel5SFX from "../assets/audio/lp/mel5.mp3";
 
 /* 
 0. useEffect 내부에 작성.
@@ -50,8 +50,8 @@ const soundHandler = () => {
     }
 };
 
-//시간 설정
-setInterval(soundHandler, 3700);
+//90BPM 4마디 10.66초
+setInterval(soundHandler, 10660);
 
 const SoundBox = () => {
     const [mel1] = useSound(mel1SFX);

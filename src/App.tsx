@@ -175,7 +175,7 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
 
     padding: 10px;
     background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+    border-radius: 5px 0px 0px 5px;
     transition: 0.09s ease-in-out;
     min-width: 110px;
     min-height: 120px;
@@ -280,7 +280,7 @@ const WelcomeBtn = styled.div<IWelcomeBtn>`
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     transition: 0.2s ease-in-out;

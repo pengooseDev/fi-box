@@ -69,6 +69,19 @@ table {
 }
 
 
+body::-webkit-scrollbar {
+    height: 15px;
+}
+body::-webkit-scrollbar-track {
+    background: rgba(55,55,55,0.3);
+}
+body::-webkit-scrollbar-thumb {
+    background: rgba(232,19,169,0.65);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
+}
+
+
 `;
 
 root.render(
