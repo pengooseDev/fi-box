@@ -293,6 +293,9 @@ const WelcomeBtn = styled.div<IWelcomeBtn>`
                   opacity: 0;
                   visibility: hidden;
               `};
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const WelcomeLabel = styled.div`
