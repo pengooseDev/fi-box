@@ -65,6 +65,12 @@ const soundHandler = async () => {
 };
 
 const SoundBox = () => {
+    const [mel1] = useSound(mel1SFX);
+    const [mel2] = useSound(mel2SFX);
+    const [mel3] = useSound(mel3SFX);
+    const [mel4] = useSound(mel4SFX);
+    const [mel5] = useSound(mel5SFX);
+
     //90BPM 4var 10.66s
     React.useEffect(() => {
         setInterval(soundHandler, 11290);
