@@ -54,23 +54,18 @@ const soundHandler = async () => {
     const queue = parsedLocalData["lpState"]["player"];
     console.log(queue);
 
-    const promiseArray: any = [];
-    for (let i of queue) {
-        // @ts-ignore
-        promiseArray.push(queueObject[`${i}`]);
-    }
+    const promiseArray: void[] = [];
 
-    const promise = promiseArray.map((v: any) => v());
-    await Promise.all(promise);
+    //@ts-ignore
+    queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
+
+    console.time("1");
+    //@ts-ignore
+    Promise.all(promiseArray.map((i) => i()));
+    console.timeEnd("1");
 };
 
 const SoundBox = () => {
-    const [mel1] = useSound(mel1SFX);
-    const [mel2] = useSound(mel2SFX);
-    const [mel3] = useSound(mel3SFX);
-    const [mel4] = useSound(mel4SFX);
-    const [mel5] = useSound(mel5SFX);
-
     //90BPM 4var 10.66s
     React.useEffect(() => {
         setInterval(soundHandler, 11290);
