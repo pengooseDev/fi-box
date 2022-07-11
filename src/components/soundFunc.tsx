@@ -1,5 +1,4 @@
 import React from "react";
-import useSound from "use-sound";
 import mel1SFX from "../assets/audio/lp/mel1.mp3";
 import mel2SFX from "../assets/audio/lp/mel2.mp3";
 import mel3SFX from "../assets/audio/lp/mel3.mp3";
@@ -59,20 +58,17 @@ const soundHandler = async () => {
     //@ts-ignore
     queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
 
-    console.time("1");
     //@ts-ignore
     Promise.all(promiseArray.map((i) => i()));
-    console.timeEnd("1");
 };
 
 const SoundBox = () => {
     //90BPM 4var 10.66s
     React.useEffect(() => {
-        setInterval(soundHandler, 11290);
+        setInterval(soundHandler, 11296);
     }, []);
-    //setInterval(soundHandler, 11290);
 
-    //85BPM 4var 11.29s
+    //85BPM(16bit) => 11,296ms
     return <></>;
 };
 

@@ -103,8 +103,8 @@ const FileContainer = styled.div`
 `;
 
 const FileBoard = styled.ul`
-    z-index: 2;
-    position: absolute;
+    z-index: 4;
+    position: relative;
     top: 0px;
     left: 0px;
     width: auto;
@@ -119,6 +119,18 @@ const FileBoard = styled.ul`
     min-width: 110px;
     min-height: 120px;
     //transition: 0.2s ease-in-out;
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(232, 19, 169, 0.65);
+        border-radius: 5px 0px 0px 5px;
+        box-shadow: 0px 0px 5px black;
+    }
 `;
 
 //LP Board & Queue
@@ -162,23 +174,52 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
     react-dnd쓰자..
     */
     top: ${(props) =>
-        props.queueLength ? 480 + props.queueLength * -112.5 : 368}px;
+        props.queueLength
+            ? props.queueLength > 3
+                ? 480 + 4 * -112.5
+                : 480 + props.queueLength * -112.5
+            : 368}px;
 
     top: ${(props) =>
         props.snapshot.isDraggingOver
             ? props.snapshot.draggingFromThisWith
                 ? null
+                : props.queueLength > 3
+                ? 480 + 4 * -112.5
                 : `${480 + (props.queueLength + 1) * -112.5}px`
             : null};
 
-    right: ${(props) => (props.lpPlayerDisplay ? "0px" : "-130px")};
-
+    right: ${(props) =>
+        props.lpPlayerDisplay
+            ? props.queueLength > 4
+                ? "0px"
+                : "0px"
+            : props.queueLength > 4
+            ? "-148px"
+            : "-137px"};
     padding: 10px;
+
+    padding-right: ${(props) => (props.queueLength > 4 ? "10px" : "17px")};
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(232, 19, 169, 0.65);
+        border-radius: 5px 0px 0px 5px;
+        box-shadow: 0px 0px 5px black;
+    }
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px 0px 0px 5px;
     transition: 0.09s ease-in-out;
     min-width: 110px;
     min-height: 120px;
+    max-height: 470px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     //LP크기랑 맞추면 될 듯.
 `;
