@@ -37,7 +37,7 @@ const soundHandler = async () => {
     queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
 
     //@ts-ignore
-    Promise.all(promiseArray.map((i) => console.log(i)));
+    Promise.all(promiseArray.map((i) => console.log((i.currentTime = 0))));
 
     //@ts-ignore
     Promise.all(promiseArray.map((i) => i.play()));
@@ -104,7 +104,7 @@ const soundHandler = async () => {
 const SoundBox = () => {
     //90BPM 4var 10.66s
     React.useEffect(() => {
-        setInterval(soundHandler, 11406);
+        setInterval(soundHandler, 11296);
     }, []);
 
     //85BPM(16bit) => 11,296ms
