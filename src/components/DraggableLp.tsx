@@ -6,7 +6,8 @@ import { useRecoilState } from "recoil";
 import { lpState } from "../atoms";
 
 /* LpImg */
-import lpImg from "../assets/img/lp1.png";
+import lp1Img from "../assets/img/lp1.png";
+import lp2Img from "../assets/img/lp2.png";
 
 //LP
 const LpCard = styled.div`
@@ -18,7 +19,21 @@ const LpCard = styled.div`
     transition: 0.2s ease-in-out;
 `;
 
-const LpCardImg = styled.img.attrs({ src: lpImg })`
+const Lp1CardImg = styled.img.attrs({ src: lp1Img })`
+    width: 100px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
+    filter: drop-shadow(5px 5px 0px #222);
+    :hover {
+        filter: drop-shadow(3px 3px 8px rgba(255, 53, 104, 0.6));
+    }
+    :active {
+        filter: drop-shadow(3px 3px 0px rgba(255, 53, 104, 0.8));
+    }
+`;
+
+const Lp2CardImg = styled.img.attrs({ src: lp2Img })`
     width: 100px;
     padding: 5px;
     border-radius: 50%;
@@ -87,7 +102,7 @@ const DragabbleLp = ({ v, i, providedInfo }: IDragabbleLpProps) => {
                         {providedInfo ? (
                             <LpClose onClick={playerCloseHandler}>x</LpClose>
                         ) : null}
-                        <LpCardImg></LpCardImg>
+                        <Lp1CardImg></Lp1CardImg>
                     </LpCard>
                 </>
             )}

@@ -2192,6 +2192,13 @@
     "@types/scheduler" "*"
     "csstype" "^3.0.2"
 
+"@types/recoil@^0.0.9":
+  "integrity" "sha512-dXKcvdzQbkFCcULgxhtc/3shoCNqsspRUY1KwIUYcAzgS0qY7+IxlcjRjq+9PizFnzKrHESllkbezqCMstPmQA=="
+  "resolved" "https://registry.npmjs.org/@types/recoil/-/recoil-0.0.9.tgz"
+  "version" "0.0.9"
+  dependencies:
+    "recoil" "*"
+
 "@types/resolve@1.17.1":
   "integrity" "sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw=="
   "resolved" "https://registry.npmjs.org/@types/resolve/-/resolve-1.17.1.tgz"
@@ -8810,7 +8817,7 @@
   "resolved" "https://registry.npmjs.org/recoil-persist/-/recoil-persist-4.2.0.tgz"
   "version" "4.2.0"
 
-"recoil@^0.7.2", "recoil@^0.7.4":
+"recoil@*", "recoil@^0.7.2", "recoil@^0.7.4":
   "integrity" "sha512-sCXvQGMfSprkNU4ZRkJV4B0qFQSURJMgsICqY1952WRlg66NMwYqi6n67vhnhn0qw4zHU1gHXJuMvRDaiRNFZw=="
   "resolved" "https://registry.npmjs.org/recoil/-/recoil-0.7.4.tgz"
   "version" "0.7.4"

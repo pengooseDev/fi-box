@@ -45,3 +45,12 @@ export const lpState = atom<ILpState>({
     },
     effects_UNSTABLE: [persistAtom],
 });
+
+export const soundState = atom({
+    key: "soundState",
+    default: {
+        velocity: 80,
+        mute: false,
+        pause: false,
+    },
+});

@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import styled, { keyframes, css } from "styled-components";
+import styled, { css } from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
 import {
@@ -18,6 +18,9 @@ import fileImg from "./assets/img/file1.png";
 
 //welcome
 import cassetteSFX from "./assets/audio/cassette.mp3";
+
+//SoundStateHandler
+import SoundStateHandler from "./components/SoundStateHandler";
 
 // fileBoard sound
 import onClickSFX from "./assets/audio/onDown.mp3";
@@ -131,6 +134,9 @@ const FileBoard = styled.ul`
         border-radius: 5px 0px 0px 5px;
         box-shadow: 0px 0px 5px black;
     }
+    //max-height: 500px;
+    //overflow-y: auto;
+    //overflow-x: hidden;
 `;
 
 //LP Board & Queue
@@ -582,6 +588,7 @@ function App() {
                     onMouseDown={playerMouseDown}
                     onMouseUp={playerMouseUp}
                 />
+                <SoundStateHandler></SoundStateHandler>
                 <LoFiCat />
                 <WelcomeBtn
                     onClick={welcomeClickHandler}
