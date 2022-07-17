@@ -1,3 +1,4 @@
+import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
@@ -266,8 +267,13 @@ const getRandomInt: randomGenerator = (min, max) => {
 };
 
 const LoFiCat = () => {
-    const [c1] = useSound(catSoundSFX1);
-    const [c2] = useSound(catSoundSFX2);
+    const [playbackRate, setPlaybackRate] = React.useState(0.75);
+    const [c1] = useSound(catSoundSFX5, {
+        playbackRate,
+        volume: 1,
+    });
+    //5,6, 10
+    /*    const [c2] = useSound(catSoundSFX2);
     const [c3] = useSound(catSoundSFX3);
     const [c4] = useSound(catSoundSFX4);
     const [c5] = useSound(catSoundSFX5);
@@ -292,11 +298,10 @@ const LoFiCat = () => {
         c11,
         c12,
     ];
-
+*/
     const cuteCat = () => {
-        //catSoundSFX;
-        let randomInt = getRandomInt(1, 12);
-        randomCatSFXArray[randomInt]();
+        setPlaybackRate(playbackRate + 0.1);
+        c1();
     };
 
     return <LoFiCatContainer onClick={cuteCat}></LoFiCatContainer>;

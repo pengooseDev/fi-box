@@ -13,7 +13,7 @@ import mel7SFX from "../assets/audio/lp/lp7.mp3";
 2. queue 시작시, recoil에서 data를 받아와서 array로 재생.
 */
 
-const queueObject = {
+export const queueObject = {
     //앞부분이 recoil에서 받아오는 LP이름
     LP1: new Audio(mel1SFX),
     LP2: new Audio(mel2SFX),
@@ -25,7 +25,7 @@ const queueObject = {
 };
 
 const soundHandler = async () => {
-    const localData = localStorage.getItem("recoil-persist");
+    const localData = localStorage.getItem("LSLpState");
     if (!localData) return;
     const parsedLocalData = JSON.parse(localData);
     const queue = parsedLocalData["lpState"]["player"];

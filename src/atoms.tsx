@@ -1,7 +1,11 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist({
+    key: "LSLpState",
+    storage: localStorage,
+});
+
 // playerQueueLengthProps
 export interface IPlayerQueueLength {
     queueLength: number;
@@ -44,13 +48,4 @@ export const lpState = atom<ILpState>({
         player: ["LP1"],
     },
     effects_UNSTABLE: [persistAtom],
-});
-
-export const soundState = atom({
-    key: "soundState",
-    default: {
-        velocity: 80,
-        mute: false,
-        pause: false,
-    },
 });
