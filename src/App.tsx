@@ -268,7 +268,7 @@ const getRandomInt: randomGenerator = (min, max) => {
 
 const LoFiCat = () => {
     const [playbackRate, setPlaybackRate] = React.useState(0.75);
-    const [c1] = useSound(catSoundSFX5, {
+    const [c1] = useSound(catSoundSFX4, {
         playbackRate,
         volume: 1,
     });

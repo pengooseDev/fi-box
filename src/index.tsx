@@ -83,34 +83,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* CSS */
-input[type="range"] {
-    overflow: hidden;
-    height: 10px;
-    -webkit-appearance: none;
-    margin: 10px 0;
-    background: transparent;
-}
+
 
 input[type="range"]:focus {
 	outline: none;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    border-radius: 5px;
-    background: #111;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 0px;
-    height: 30px;
-    background: #111;
-    cursor: pointer;
-    box-shadow: -100vw 0 0 100vw rgba(232,19,169,0.65);
-}
 
 
 
