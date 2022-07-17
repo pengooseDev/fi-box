@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { RecoilRoot } from "recoil";
 
 const root = ReactDOM.createRoot(
@@ -81,6 +81,9 @@ body::-webkit-scrollbar-thumb {
     box-shadow: 0px 0px 5px black;
 }
 
+img::selection{
+    background: none;
+}
 
 `;
 
