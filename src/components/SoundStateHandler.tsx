@@ -1,8 +1,9 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { soundState } from "../soundAtom";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import React from "react";
 import { queueObject } from "./soundFunc";
+import { welcomeDisplayAtom } from "../atoms";
 
 const VolumeInput = styled.input.attrs({
     type: "range",
@@ -34,7 +35,6 @@ const VolumeInput = styled.input.attrs({
         height: 10px;
         background: rgba(255, 255, 255, 0.9);
         border: solid rgba(111, 111, 111, 0.3) 1px;
-
         border-radius: 2px;
         cursor: pointer;
         box-shadow: -101vw 0 0 100vw rgba(232, 19, 169, 0.65);
@@ -51,57 +51,72 @@ const VolumeInput = styled.input.attrs({
 
 const PlayStateBar = styled.div`
     position: absolute;
-    bottom: 21.4%;
-    right: 39.5%;
+    bottom: 23.7%;
+    right: 39.35%;
     display: flex;
 `;
 
 const barAnimation = keyframes`
     0%{
-        transform: scale(1,0.2)
-    }
-
-    50%{
         transform: scale(1,1)
     }
 
+    50%{
+        transform: scale(1,9)
+    }
+
     100%{
-        transform: scale(1,0.2)
+        transform: scale(1,1)
     }
 `;
 
-const Bar = styled.div`
+interface IBar {
+    playState: boolean;
+}
+
+const Bar = styled.div<IBar>`
     background: #ffb834;
     width: 2px;
-    height: 25px;
+    height: 2px;
     margin-right: 3px;
-    :nth-child(1) {
-        animation: ${barAnimation} infinite 0.7s;
-    }
-    :nth-child(2) {
-        animation: ${barAnimation} infinite 1s;
-    }
-    :nth-child(3) {
-        animation: ${barAnimation} infinite 0.3s;
-    }
-    :nth-child(4) {
-        animation: ${barAnimation} infinite 0.54s;
-    }
-    :nth-child(5) {
-        animation: ${barAnimation} infinite 0.6s;
-    }
-    :nth-child(6) {
-        animation: ${barAnimation} infinite 1.1s;
-    }
-    :nth-child(7) {
-        animation: ${barAnimation} infinite 0.8s;
-    }
+    ${(props) =>
+        props.playState
+            ? null
+            : css`
+                  :nth-child(1) {
+                      animation: ${barAnimation} infinite 1s;
+                  }
+                  :nth-child(2) {
+                      animation: ${barAnimation} infinite 0.4s;
+                  }
+                  :nth-child(3) {
+                      animation: ${barAnimation} infinite 0.7s;
+                  }
+                  :nth-child(4) {
+                      animation: ${barAnimation} infinite 1.1s;
+                  }
+                  :nth-child(5) {
+                      animation: ${barAnimation} infinite 0.5s;
+                  }
+                  :nth-child(6) {
+                      animation: ${barAnimation} infinite 0.35s;
+                  }
+                  :nth-child(7) {
+                      animation: ${barAnimation} infinite 0.8s;
+                  }
+              `}
 `;
 
-const PlayerBar = styled.input.attrs({ type: "range", disabled: true })`
+const PlayerBar = styled.input.attrs({
+    type: "range",
+    //disabled: true,
+    min: 0,
+    max: 11.296,
+    step: 0.01,
+})`
     position: absolute;
-    bottom: 21.4%;
-    right: 27.5%;
+    bottom: 22.4%;
+    right: 27.95%;
     width: 11%;
 
     //InputRange CSS
@@ -110,12 +125,12 @@ const PlayerBar = styled.input.attrs({ type: "range", disabled: true })`
     -webkit-appearance: none;
     margin: 10px 0;
     background: transparent;
+    border-radius: 2px;
 
     ::-webkit-slider-thumb {
-        -webkit-appearance: none;
         width: 0px;
-        border-radius: 2px;
-        box-shadow: -101vw 0 0 100vw white;
+        -webkit-appearance: none;
+        box-shadow: -100vw 0 0 100vw rgba(255, 255, 255, 0.75);
     }
 
     ::-webkit-slider-runnable-track {
@@ -128,6 +143,8 @@ const PlayerBar = styled.input.attrs({ type: "range", disabled: true })`
 
 const SoundStateHandler = () => {
     const [sound, setSound] = useRecoilState(soundState);
+    const [time, setTime] = React.useState(0);
+    const playState = useRecoilValue(welcomeDisplayAtom);
     for (const [_, i] of Object.entries(queueObject)) {
         i.volume = sound["velocity"];
     }
@@ -145,36 +162,40 @@ const SoundStateHandler = () => {
     };
 
     /* PlayerBarHandler */
-
     const isPlaying = (x: any) => {
         return !x.paused;
     };
 
-    let timeValue = 0;
     const PlayerBarHandler = () => {
         for (const [_, i] of Object.entries(queueObject)) {
             if (isPlaying(i)) {
-                console.log(`${i} : `, i.currentTime);
+                setTime((prev) => i.currentTime);
             }
         }
     };
 
+    const pass = () => {};
+
+    React.useEffect(() => {
+        setInterval(PlayerBarHandler, 112.96);
+    }, []);
+
     return (
         <>
             <PlayStateBar>
-                <Bar />
-                <Bar />
-                <Bar />
-                <Bar />
-                <Bar />
-                <Bar />
-                <Bar />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
+                <Bar playState={playState} />
             </PlayStateBar>
             <VolumeInput
                 value={sound["velocity"]}
                 onChange={volumeChangeHandler}
             ></VolumeInput>
-            <PlayerBar></PlayerBar>
+            <PlayerBar value={time} onChange={pass}></PlayerBar>
         </>
     );
 };
