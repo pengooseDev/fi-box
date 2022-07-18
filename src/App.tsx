@@ -1,4 +1,3 @@
-import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
@@ -14,6 +13,10 @@ import {
 import useSound from "use-sound";
 import bgCloseSFX from "./assets/audio/bgClose.mp3";
 import DragabbleLp from "./components/DraggableLp";
+/* Header */
+import Header from "./components/Helmet";
+/* Cat */
+import LoFiCat from "./components/LofiCat";
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
 
@@ -37,23 +40,6 @@ import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 
 //soundBox
 import SoundBox from "./components/soundFunc";
-
-/* Lo-fi Cat */
-import lofiCatImgSrc from "./assets/img/goYangE.png";
-
-//Lo-fi Cat Sound
-import catSoundSFX1 from "./assets/audio/cat/cat1.mp3";
-import catSoundSFX2 from "./assets/audio/cat/cat2.mp3";
-import catSoundSFX3 from "./assets/audio/cat/cat3.mp3";
-import catSoundSFX4 from "./assets/audio/cat/cat4.mp3";
-import catSoundSFX5 from "./assets/audio/cat/cat5.mp3";
-import catSoundSFX6 from "./assets/audio/cat/cat6.mp3";
-import catSoundSFX7 from "./assets/audio/cat/cat7.mp3";
-import catSoundSFX8 from "./assets/audio/cat/cat8.mp3";
-import catSoundSFX9 from "./assets/audio/cat/cat9.mp3";
-import catSoundSFX10 from "./assets/audio/cat/cat10.mp3";
-import catSoundSFX11 from "./assets/audio/cat/cat11.mp3";
-import catSoundSFX12 from "./assets/audio/cat/cat12.mp3";
 
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
@@ -178,6 +164,7 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
 
     /*
     Droppable일때 RBD는 board의 display가 아래로만 확장한다는 한계가 있음.
+    -> direction = "horizontal"쓰면 됨!
     Hover로 top의 position을 처리할 경우, Draggable의 어디를 클릭하느냐에 따라 유의미한 오차가 발생.
     따라서, props에서 draggingOver일 때, top의 position이 변하도록 구현. 
     react-dnd쓰자..
@@ -236,76 +223,6 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
 
     //LP크기랑 맞추면 될 듯.
 `;
-
-/* Cat */
-// gif로 변경.
-const LoFiCatContainer = styled.img.attrs({ src: lofiCatImgSrc })`
-    position: absolute;
-    bottom: 25%;
-    left: 21.8%;
-    border-radius: 100%;
-    padding: 10px;
-    width: 9%;
-    height: 11%;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
-
-    :hover {
-        cursor: pointer;
-    }
-`;
-
-type randomGenerator = { (a: number, b: number): number };
-
-const getRandomInt: randomGenerator = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-};
-
-const LoFiCat = () => {
-    const [playbackRate, setPlaybackRate] = React.useState(0.75);
-    const [c1] = useSound(catSoundSFX4, {
-        playbackRate,
-        volume: 1,
-    });
-    //5,6, 10
-    /*    const [c2] = useSound(catSoundSFX2);
-    const [c3] = useSound(catSoundSFX3);
-    const [c4] = useSound(catSoundSFX4);
-    const [c5] = useSound(catSoundSFX5);
-    const [c6] = useSound(catSoundSFX6);
-    const [c7] = useSound(catSoundSFX7);
-    const [c8] = useSound(catSoundSFX8);
-    const [c9] = useSound(catSoundSFX9);
-    const [c10] = useSound(catSoundSFX10);
-    const [c11] = useSound(catSoundSFX11);
-    const [c12] = useSound(catSoundSFX12);
-    const randomCatSFXArray = [
-        c1,
-        c2,
-        c3,
-        c4,
-        c5,
-        c6,
-        c7,
-        c8,
-        c9,
-        c10,
-        c11,
-        c12,
-    ];
-*/
-    const cuteCat = () => {
-        setPlaybackRate(playbackRate + 0.1);
-        c1();
-    };
-
-    return <LoFiCatContainer onClick={cuteCat}></LoFiCatContainer>;
-};
 
 //
 //
@@ -374,19 +291,20 @@ const WelcomeLabel = styled.div`
 `;
 
 function App() {
-    //LpState
+    //Atom
     const [lps, setLps] = useRecoilState(lpState);
-    //welcomeDisplay
+    const [fileDisplayToggle, setFileDisplayToggle] =
+        useRecoilState(fileDisplayAtom);
     const [welcomeDisplay, setWelcomeDisplay] =
         useRecoilState(welcomeDisplayAtom);
+
+    //welcomeDisplay
     const [cassetteSound] = useSound(cassetteSFX);
 
     const [onClickSound] = useSound(onClickSFX);
     const [openSound] = useSound(openSoundSFX);
     const [closeSound] = useSound(closeSoundSFX);
     const [bgCloseSound] = useSound(bgCloseSFX);
-    const [fileDisplayToggle, setFileDisplayToggle] =
-        useRecoilState(fileDisplayAtom);
 
     //LP Player Display Start
     const [playerDown] = useSound(playerDownSFX);
@@ -421,9 +339,6 @@ function App() {
     };
 
     //LP Player Display End
-    //
-    //
-    //
 
     const lpDisplayToggle = () => {
         setFileDisplayToggle((prev) => !prev);
@@ -515,6 +430,8 @@ function App() {
 
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+            <Header></Header>
+            {/* React Helmet */}
             {welcomeDisplay ? null : <SoundBox />}
             <Wrapper>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}

@@ -9,7 +9,7 @@ const { persistAtom } = recoilPersist({
 export const soundState = atom({
     key: "soundState",
     default: {
-        velocity: 80,
+        velocity: 0.8,
         paused: false,
     },
     effects_UNSTABLE: [persistAtom],

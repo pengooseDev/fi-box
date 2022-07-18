@@ -14,9 +14,10 @@ const VolumeInput = styled.input.attrs({
 })`
     -webkit-transform: rotate(270deg);
     position: absolute;
-    bottom: 35%;
-    right: 18%;
-    width: 12%;
+    bottom: 34.5%;
+    right: 20.8%;
+    width: 7%;
+    height: 5px;
 
     border-radius: 3px;
     height: 1%;
@@ -24,7 +25,6 @@ const VolumeInput = styled.input.attrs({
 
     //InputRange CSS
     overflow: hidden;
-    height: 10px;
     -webkit-appearance: none;
     margin: 10px 0;
     background: transparent;
@@ -37,7 +37,7 @@ const VolumeInput = styled.input.attrs({
         border: solid rgba(111, 111, 111, 0.3) 1px;
         border-radius: 2px;
         cursor: pointer;
-        box-shadow: -101vw 0 0 100vw rgba(232, 19, 169, 0.65);
+        box-shadow: -100.5vw 0 0 100vw rgba(232, 19, 169, 0.75);
     }
 
     ::-webkit-slider-runnable-track {
@@ -115,13 +115,13 @@ const PlayerBar = styled.input.attrs({
     step: 0.01,
 })`
     position: absolute;
-    bottom: 22.4%;
+    bottom: 22.6%;
     right: 27.95%;
     width: 11%;
 
     //InputRange CSS
     overflow: hidden;
-    height: 5px;
+    height: 2px;
     -webkit-appearance: none;
     margin: 10px 0;
     background: transparent;
