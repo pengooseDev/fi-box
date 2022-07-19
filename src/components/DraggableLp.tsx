@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { IDragabbleLpProps } from "../atoms";
 import React from "react";
-import { useRecoilState } from "recoil";
-import { lpState } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { lpState, lpTheme } from "../atoms";
 
 /* LpImg */
 import lp1Img from "../assets/img/lp1.png";
@@ -17,6 +17,29 @@ const LpCard = styled.div`
     top: auto !important;
     left: auto !important;
     transition: 0.2s ease-in-out;
+`;
+
+const LpClose = styled.div`
+    position: absolute;
+    right: -5px;
+    top: -5px;
+
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 5px 7px 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const Lp1CardImg = styled.img.attrs({ src: lp1Img })`
@@ -47,28 +70,16 @@ const Lp2CardImg = styled.img.attrs({ src: lp2Img })`
     }
 `;
 
-const LpClose = styled.div`
-    position: absolute;
-    right: -5px;
-    top: -5px;
-
-    color: white;
-    background: rgba(0, 0, 0, 0.8);
-    font-size: 20px;
-    font-weight: 600;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px 5px 7px 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-
-    :hover {
-        cursor: pointer;
+const LpCardImg = (theme: any) => {
+    const lpThemeValue = useRecoilValue(lpTheme);
+    if (lpThemeValue[theme["theme"]] === "red") {
+        return <Lp1CardImg />;
+    } else if (lpThemeValue[theme["theme"]] === "yellow") {
+        return <Lp2CardImg />;
+    } else {
+        return null;
     }
-`;
+};
 
 const DragabbleLp = ({ v, i, providedInfo }: IDragabbleLpProps) => {
     const [lps, setLps] = useRecoilState(lpState);
@@ -102,7 +113,7 @@ const DragabbleLp = ({ v, i, providedInfo }: IDragabbleLpProps) => {
                         {providedInfo ? (
                             <LpClose onClick={playerCloseHandler}>x</LpClose>
                         ) : null}
-                        <Lp1CardImg></Lp1CardImg>
+                        <LpCardImg theme={v}></LpCardImg>
                     </LpCard>
                 </>
             )}

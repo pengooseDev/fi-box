@@ -49,3 +49,20 @@ export const lpState = atom<ILpState>({
     },
     effects_UNSTABLE: [persistAtom],
 });
+
+interface ILpTheme {
+    [key: string]: string;
+}
+
+export const lpTheme = atom<ILpTheme>({
+    key: "lpTheme",
+    default: {
+        LP1: "yellow",
+        LP2: "yellow",
+        LP3: "yellow",
+        LP4: "yellow",
+        LP5: "red",
+        LP6: "red",
+        LP7: "red",
+    },
+});
