@@ -9,7 +9,7 @@ import mel7SFX from "../assets/audio/lp/lp7.mp3";
 import styled from "styled-components";
 /* Ambience */
 import rainAmbience from "../assets/audio/ambience/rain.mp3";
-import { ambienceToggle } from "../atoms";
+import { ambienceToggle } from "../ambienceAtom";
 
 import rain from "../assets/img/rain.png";
 import muteRain from "../assets/img/mute.png";
@@ -98,19 +98,24 @@ const UnMute = styled.img.attrs({ src: rain })`
 `;
 
 const rainSFX = new Audio(rainAmbience);
-
 const SoundBox = () => {
     const [rain, setRain] = useRecoilState(ambienceToggle);
     const ambienceToggleHandler = () => {
-        setRain((prev) => !prev);
+        setRain((prev: any) => !prev);
     };
 
     const ambienceHandler = () => {
-        if (rain) {
+        const localData = localStorage.getItem("ambienceToggle");
+        if (!localData) return;
+        const parsedLocalData = JSON.parse(localData);
+        const localRainState = parsedLocalData["ambienceToggle"];
+
+        if (localRainState) {
             rainSFX.volume = 1;
             rainSFX.play();
         } else {
             rainSFX.volume = 0;
+            rainSFX.play();
         }
     };
 

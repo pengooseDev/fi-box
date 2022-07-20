@@ -66,8 +66,3 @@ export const lpTheme = atom<ILpTheme>({
         LP7: "red",
     },
 });
-
-export const ambienceToggle = atom({
-    key: "ambienceToggle",
-    default: true,
-});
