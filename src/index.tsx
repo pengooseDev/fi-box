@@ -14,7 +14,7 @@ body{
     background: linear-gradient(30deg, #29046D, #2F0557);
     display: flex;
     justify-content: center;
-    background: #180727;
+    background: #0E011C;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -88,10 +88,6 @@ body::-webkit-scrollbar-thumb {
 input[type="range"]:focus {
 	outline: none;
 }
-
-
-
-
 `;
 
 root.render(

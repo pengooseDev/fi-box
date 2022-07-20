@@ -6,14 +6,14 @@ import styled from "styled-components";
 
 /* Cat */
 // gif로 변경.
-const LoFiCatContainer = styled.img.attrs({ src: lofiCatImgSrc })`
+const LoFiCatContainer = styled.div`
     position: absolute;
-    bottom: 25%;
-    left: 21.8%;
+    bottom: 18%;
+    left: 23.8%;
     border-radius: 100%;
-    padding: 10px;
-    width: 9%;
-    height: 11%;
+    padding: 28px;
+    width: 8.5%;
+    height: 10%;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;

@@ -6,7 +6,8 @@ import mel4SFX from "../assets/audio/lp/lp4.mp3";
 import mel5SFX from "../assets/audio/lp/lp5.mp3";
 import mel6SFX from "../assets/audio/lp/lp6.mp3";
 import mel7SFX from "../assets/audio/lp/lp7.mp3";
-
+import { lpTheme } from "../atoms";
+import { useRecoilValue } from "recoil";
 /* 
 0. useEffect 내부에 작성.
 1. 특정 시간마다 queue 재생.
@@ -29,7 +30,7 @@ const soundHandler = async () => {
     if (!localData) return;
     const parsedLocalData = JSON.parse(localData);
     const queue = parsedLocalData["lpState"]["player"];
-    console.log(queue);
+    //console.log(queue);
 
     const promiseArray: void[] = [];
 

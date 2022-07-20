@@ -14,7 +14,7 @@ const VolumeInput = styled.input.attrs({
 })`
     -webkit-transform: rotate(270deg);
     position: absolute;
-    bottom: 34.5%;
+    bottom: 39.5%;
     right: 20.8%;
     width: 7%;
     height: 5px;
@@ -45,14 +45,15 @@ const VolumeInput = styled.input.attrs({
         height: 100%;
         cursor: pointer;
         border-radius: 5px;
-        background: #111;
+        background: rgba(133, 133, 133, 0.4);
     }
 `;
 
 const PlayStateBar = styled.div`
     position: absolute;
-    bottom: 23.7%;
-    right: 39.35%;
+    bottom: 28.6%;
+    right: 39.35%; //leftSide
+    //right: 25.35%; //rightSide
     display: flex;
 `;
 
@@ -84,25 +85,25 @@ const Bar = styled.div<IBar>`
             ? null
             : css`
                   :nth-child(1) {
-                      animation: ${barAnimation} infinite 1s;
+                      animation: ${barAnimation} infinite 2s;
                   }
                   :nth-child(2) {
-                      animation: ${barAnimation} infinite 0.4s;
+                      animation: ${barAnimation} infinite 0.8s;
                   }
                   :nth-child(3) {
-                      animation: ${barAnimation} infinite 0.7s;
+                      animation: ${barAnimation} infinite 1.4s;
                   }
                   :nth-child(4) {
-                      animation: ${barAnimation} infinite 1.1s;
+                      animation: ${barAnimation} infinite 2.2s;
                   }
                   :nth-child(5) {
-                      animation: ${barAnimation} infinite 0.5s;
+                      animation: ${barAnimation} infinite 1s;
                   }
                   :nth-child(6) {
-                      animation: ${barAnimation} infinite 0.35s;
+                      animation: ${barAnimation} infinite 0.7s;
                   }
                   :nth-child(7) {
-                      animation: ${barAnimation} infinite 0.8s;
+                      animation: ${barAnimation} infinite 1.6s;
                   }
               `}
 `;
@@ -115,7 +116,7 @@ const PlayerBar = styled.input.attrs({
     step: 0.01,
 })`
     position: absolute;
-    bottom: 22.6%;
+    bottom: 27.6%;
     right: 27.95%;
     width: 11%;
 
