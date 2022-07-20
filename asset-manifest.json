@@ -1,22 +1,25 @@
 {
   "files": {
-    "main.js": "/fi-box/static/js/main.733de548.js",
-    "static/js/845.0473c627.chunk.js": "/fi-box/static/js/845.0473c627.chunk.js",
-    "static/media/background.png": "/fi-box/static/media/background.6c60106a97d3effb8994.png",
+    "main.js": "/fi-box/static/js/main.0ecbdc06.js",
+    "static/js/845.8c0244ed.chunk.js": "/fi-box/static/js/845.8c0244ed.chunk.js",
+    "static/media/rain.mp3": "/fi-box/static/media/rain.b2aa233977f4c7383e1d.mp3",
+    "static/media/background.jpg": "/fi-box/static/media/background.847e9ebba14e5c51e539.jpg",
     "static/media/lp1.mp3": "/fi-box/static/media/lp1.cda64fdf65025d149d64.mp3",
     "static/media/lp2.mp3": "/fi-box/static/media/lp2.40abc8e327a2904a1a1b.mp3",
     "static/media/lp3.mp3": "/fi-box/static/media/lp3.cd047116915695c35cd1.mp3",
     "static/media/lp4.mp3": "/fi-box/static/media/lp4.a4154bd363e3405d781e.mp3",
-    "static/media/lp5.mp3": "/fi-box/static/media/lp5.637ee6ad02af40dd7b8f.mp3",
+    "static/media/lp5.mp3": "/fi-box/static/media/lp5.293b3fed4b5ca2aa6f5f.mp3",
     "static/media/lp6.mp3": "/fi-box/static/media/lp6.2b1bd5f65290fb5b457d.mp3",
     "static/media/lp7.mp3": "/fi-box/static/media/lp7.b88a866cac318efc2341.mp3",
     "static/media/lp2.png": "/fi-box/static/media/lp2.8f44958d7ae9cf9312ce.png",
     "static/media/lp1.png": "/fi-box/static/media/lp1.c5c348e91bcd1c7045de.png",
-    "static/media/LpPlayer.png": "/fi-box/static/media/LpPlayer.f873b220076acbf97964.png",
+    "static/media/lp3.png": "/fi-box/static/media/lp3.8f54dac551da83268538.png",
     "static/media/cat4.mp3": "/fi-box/static/media/cat4.7baaa70ab37ab1bd3686.mp3",
-    "static/media/goYangE.png": "/fi-box/static/media/goYangE.71e70a1992cb1767590b.png",
     "static/media/cassette.mp3": "/fi-box/static/media/cassette.d3bc19f451cbd6b7c8a4.mp3",
     "static/media/file1.png": "/fi-box/static/media/file1.18c57d1436f726ff183c.png",
+    "static/media/kick.mp3": "/fi-box/static/media/kick.eab0b51b69f26d219c22.mp3",
+    "static/media/rim.mp3": "/fi-box/static/media/rim.672cb10ea476345acdbd.mp3",
+    "static/media/shaker.mp3": "/fi-box/static/media/shaker.f97ddc17cf845d2577c0.mp3",
     "static/media/bgPlayerClose.mp3": "/fi-box/static/media/bgPlayerClose.f0144b764e50c7e07bcc.mp3",
     "static/media/bgClose.mp3": "/fi-box/static/media/bgClose.79a4378318302395dc75.mp3",
     "static/media/onDown.mp3": "/fi-box/static/media/onDown.ba65c8fb63df3ae116ed.mp3",
@@ -26,10 +29,10 @@
     "static/media/playerUpClose.mp3": "/fi-box/static/media/playerUpClose.af558a961b27416039f4.mp3",
     "static/media/playerUpOpen.mp3": "/fi-box/static/media/playerUpOpen.4dd28713c112b2390250.mp3",
     "index.html": "/fi-box/index.html",
-    "main.733de548.js.map": "/fi-box/static/js/main.733de548.js.map",
-    "845.0473c627.chunk.js.map": "/fi-box/static/js/845.0473c627.chunk.js.map"
+    "main.0ecbdc06.js.map": "/fi-box/static/js/main.0ecbdc06.js.map",
+    "845.8c0244ed.chunk.js.map": "/fi-box/static/js/845.8c0244ed.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.733de548.js"
+    "static/js/main.0ecbdc06.js"
   ]
 }
