@@ -57,11 +57,11 @@ interface ILpTheme {
 export const lpTheme = atom<ILpTheme>({
     key: "lpTheme",
     default: {
-        LP1: "yellow",
-        LP2: "yellow",
-        LP3: "yellow",
-        LP4: "yellow",
-        LP5: "red",
+        LP1: "blue",
+        LP2: "blue",
+        LP3: "blue",
+        LP4: "blue",
+        LP5: "yellow",
         LP6: "red",
         LP7: "red",
     },

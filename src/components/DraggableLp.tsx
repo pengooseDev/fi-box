@@ -8,6 +8,7 @@ import { lpState, lpTheme } from "../atoms";
 /* LpImg */
 import lp1Img from "../assets/img/lp1.png";
 import lp2Img from "../assets/img/lp2.png";
+import lp3Img from "../assets/img/lp3.png";
 
 //LP
 const LpCard = styled.div`
@@ -70,12 +71,28 @@ const Lp2CardImg = styled.img.attrs({ src: lp2Img })`
     }
 `;
 
+const Lp3CardImg = styled.img.attrs({ src: lp3Img })`
+    width: 100px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
+    filter: drop-shadow(5px 5px 0px #222);
+    :hover {
+        filter: drop-shadow(3px 3px 8px rgba(255, 53, 104, 0.6));
+    }
+    :active {
+        filter: drop-shadow(3px 3px 0px rgba(255, 53, 104, 0.8));
+    }
+`;
+
 const LpCardImg = (theme: any) => {
     const lpThemeValue = useRecoilValue(lpTheme);
     if (lpThemeValue[theme["theme"]] === "red") {
         return <Lp1CardImg />;
     } else if (lpThemeValue[theme["theme"]] === "yellow") {
         return <Lp2CardImg />;
+    } else if (lpThemeValue[theme["theme"]] === "blue") {
+        return <Lp3CardImg />;
     } else {
         return null;
     }

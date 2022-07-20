@@ -102,25 +102,26 @@ const rainSFX = new Audio(rainAmbience);
 const SoundBox = () => {
     const [rain, setRain] = useRecoilState(ambienceToggle);
     const ambienceToggleHandler = () => {
-        console.log(rain);
         setRain((prev) => !prev);
     };
+
+    const ambienceHandler = () => {
+        if (rain) {
+            rainSFX.volume = 1;
+            rainSFX.play();
+        } else {
+            rainSFX.volume = 0;
+        }
+    };
+
     React.useEffect(() => {
-        const ambienceHandler = () => {
-            if (rain) {
-                rainSFX.volume = 1;
-                rainSFX.play();
-            } else {
-                rainSFX.volume = 0;
-            }
-        };
         ambienceHandler();
     }, [rain]);
 
     React.useEffect(() => {
         soundHandler();
         setInterval(soundHandler, 11296); //85BPM(16bit) => 11,296ms
-        setInterval(soundHandler, 240000); //Rain Ambience 4min(240,000ms)
+        setInterval(ambienceHandler, 240000); //Rain Ambience 4min(240,000ms)
     }, []);
 
     return (

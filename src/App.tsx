@@ -32,16 +32,18 @@ import openSoundSFX from "./assets/audio/onUpOpen.mp3";
 import closeSoundSFX from "./assets/audio/onUpClose.mp3";
 
 /* LpPlayer */
-import LpPlayerImgSrc from "./assets/img/LpPlayer.png";
 import playerDownSFX from "./assets/audio/playerClick.mp3";
 import playerUpOpenSFX from "./assets/audio/playerUpOpen.mp3";
 import playerUpCloseSFX from "./assets/audio/playerUpClose.mp3";
 import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 
+//Perc
+import kickSFX from "./assets/audio/perc/kick.mp3";
+import shakerSFX from "./assets/audio/perc/shaker.mp3";
+import rimSFX from "./assets/audio/perc/rim.mp3";
+
 //soundBox
 import SoundBox from "./components/soundFunc";
-
-import Perc from "./components/Perc";
 
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
@@ -429,12 +431,29 @@ function App() {
         }
     };
 
+    /* PercHandler */
+    const [kick] = useSound(kickSFX);
+    const [shaker] = useSound(shakerSFX);
+    const [rim] = useSound(rimSFX);
+
+    const percHandler = (e: any) => {
+        console.log(e.code);
+        if (e.code === "Digit1") {
+            kick();
+        } else if (e.code === "Digit2") {
+            shaker();
+        } else if (e.code === "Digit3") {
+            rim();
+        } else {
+            return;
+        }
+    };
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Header></Header>
             {/* React Helmet */}
             {welcomeDisplay ? null : <SoundBox />}
-            <Wrapper>
+            <Wrapper onKeyDown={percHandler} tabIndex={0}>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
                 <BackImg onClick={backgroundClickHandler}></BackImg>
 
@@ -520,7 +539,6 @@ function App() {
                     <WelcomeLabel>Click Me!</WelcomeLabel>
                 </WelcomeBtn>
             </Wrapper>
-            <Perc />
         </DragDropContext>
     );
 }
