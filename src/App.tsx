@@ -1,7 +1,7 @@
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
-import backgroundImg from "./assets/img/background1.jpg";
+import backgroundImg from "./assets/img/background.jpg";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
 import {
     welcomeDisplayAtom,
@@ -67,7 +67,7 @@ const FileImg = styled.img.attrs({ src: fileImg })`
     width: 6.3%;
     height: 12%;
     top: 14%;
-    left: 17%;
+    left: 22%;
     //left: 24%;
 
     //prevent drag
@@ -92,7 +92,7 @@ const FileImg = styled.img.attrs({ src: fileImg })`
 const FileContainer = styled.div`
     position: absolute;
     top: 14.2%;
-    left: 25.5%;
+    left: 30.5%;
 `;
 
 const FileBoard = styled.ul`
@@ -136,7 +136,7 @@ const LpPlayerInteractive = styled.div`
     padding: 1% 0px;
     opacity: 0.3;
     bottom: 29.5%;
-    right: 25.2%;
+    right: 22.5%;
 
     height: 12.5%;
     width: 15.8%;
@@ -157,8 +157,7 @@ const LpPlayerDrop = styled.div`
     padding: 1% 0px;
 
     bottom: 29.5%;
-    right: 25.2%;
-
+    right: 22.5%;
     height: 12.5%;
     width: 15.8%;
 

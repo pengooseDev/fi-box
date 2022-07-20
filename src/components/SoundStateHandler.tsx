@@ -15,7 +15,7 @@ const VolumeInput = styled.input.attrs({
     -webkit-transform: rotate(270deg);
     position: absolute;
     bottom: 39.5%;
-    right: 20.8%;
+    right: 18%;
     width: 7%;
     height: 5px;
 
@@ -52,8 +52,8 @@ const VolumeInput = styled.input.attrs({
 const PlayStateBar = styled.div`
     position: absolute;
     bottom: 28.6%;
-    right: 39.35%; //leftSide
-    //right: 25.35%; //rightSide
+    right: 36.35%; //leftSide
+    //right: 22.35%; //rightSide
     display: flex;
 `;
 
@@ -117,7 +117,7 @@ const PlayerBar = styled.input.attrs({
 })`
     position: absolute;
     bottom: 27.6%;
-    right: 27.95%;
+    right: 24.95%;
     width: 11%;
 
     //InputRange CSS

@@ -9,7 +9,7 @@ import styled from "styled-components";
 const LoFiCatContainer = styled.div`
     position: absolute;
     bottom: 18%;
-    left: 23.8%;
+    left: 26.4%;
     border-radius: 100%;
     padding: 28px;
     width: 8.5%;
