@@ -105,10 +105,16 @@ const SoundBox = () => {
     };
 
     const ambienceHandler = () => {
+        rainSFX.currentTime = 0;
+        rainSFX.play();
+    };
+
+    const muteHandler = () => {
         const localData = localStorage.getItem("ambienceToggle");
         if (!localData) return;
         const parsedLocalData = JSON.parse(localData);
         const localRainState = parsedLocalData["ambienceToggle"];
+        console.log(localRainState);
 
         if (localRainState) {
             rainSFX.volume = 1;
@@ -120,7 +126,7 @@ const SoundBox = () => {
     };
 
     React.useEffect(() => {
-        ambienceHandler();
+        muteHandler();
     }, [rain]);
 
     React.useEffect(() => {

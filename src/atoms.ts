@@ -44,8 +44,8 @@ interface ILpState {
 export const lpState = atom<ILpState>({
     key: "lpState",
     default: {
-        file: ["LP2", "LP3", "LP4", "LP5", "LP6", "LP7"],
-        player: ["LP1"],
+        file: ["LP1", "LP2", "LP3", "LP4", "LP5", "LP6", "LP7"],
+        player: [],
     },
     effects_UNSTABLE: [persistAtom],
 });

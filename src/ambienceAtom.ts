@@ -8,6 +8,6 @@ const { persistAtom } = recoilPersist({
 
 export const ambienceToggle = atom({
     key: "ambienceToggle",
-    default: true,
+    default: false,
     effects_UNSTABLE: [persistAtom],
 });
