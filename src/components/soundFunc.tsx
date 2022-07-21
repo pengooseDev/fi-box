@@ -6,6 +6,7 @@ import mel4SFX from "../assets/audio/lp/lp4.mp3";
 import mel5SFX from "../assets/audio/lp/lp5.mp3";
 import mel6SFX from "../assets/audio/lp/lp6.mp3";
 import mel7SFX from "../assets/audio/lp/lp7.mp3";
+import mel8SFX from "../assets/audio/lp/lp8.mp3";
 import styled from "styled-components";
 /* Ambience */
 import rainAmbience from "../assets/audio/ambience/rain.mp3";
@@ -14,7 +15,6 @@ import { ambienceToggle } from "../ambienceAtom";
 import rain from "../assets/img/rain.png";
 import muteRain from "../assets/img/mute.png";
 
-import { lpTheme } from "../atoms";
 import { useRecoilState } from "recoil";
 /* 
 0. useEffect 내부에 작성.
@@ -31,6 +31,7 @@ export const queueObject = {
     LP5: new Audio(mel5SFX),
     LP6: new Audio(mel6SFX),
     LP7: new Audio(mel7SFX),
+    LP8: new Audio(mel8SFX),
 };
 
 const soundHandler = async () => {
@@ -43,21 +44,19 @@ const soundHandler = async () => {
     const promiseArray: void[] = [];
     //@ts-ignore
     queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
+    /* 여기서 loop가 아닌 mp3는 조건문으로 따로 실행. */
+
+    /* if(!loop){
+        sound를 loop 내장함수로 돌려주고, queueState를 deps로 가지는 useEffect하나 파서,
+        queue에서 해당 LP를 삭제했을 경우 audio.volume=0으로 만들어주고,
+        다시 올려두면 audio.currentTime=0 & audio.volume=1 & audio.play()해주기.
+    } */
+
     //@ts-ignore
     promiseArray.map((i) => (i.currentTime = 0));
     //@ts-ignore
     promiseArray.map((i) => i.play());
 };
-
-/*
-audio.addEventListener('timeupdate', function(){
-            var buffer = .1
-            if(this.currentTime > this.duration - buffer){
-                this.currentTime = 0
-                this.play()
-            }}, false);
- audio.play()
-*/
 
 const SoundWrapper = styled.div`
     position: absolute;
