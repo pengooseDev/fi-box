@@ -114,7 +114,6 @@ const SoundBox = () => {
         if (!localData) return;
         const parsedLocalData = JSON.parse(localData);
         const localRainState = parsedLocalData["ambienceToggle"];
-        console.log(localRainState);
 
         if (localRainState) {
             rainSFX.volume = 1;
