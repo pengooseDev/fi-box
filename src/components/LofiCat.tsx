@@ -1,6 +1,5 @@
 import React from "react";
 import useSound from "use-sound";
-import lofiCatImgSrc from "../assets/img/goYangE.png";
 import catSoundSFX4 from "../assets/audio/cat/cat4.mp3";
 import styled from "styled-components";
 
