@@ -2,29 +2,34 @@ import React from "react";
 import useSound from "use-sound";
 import catSoundSFX4 from "../assets/audio/cat/cat4.mp3";
 import styled from "styled-components";
+import { motion } from "framer-motion";
+
+//img
+import lofiCat from "../assets/img/cat.png";
+
+interface IcatProps {}
 
 /* Cat */
 // gif로 변경.
-const LoFiCatContainer = styled.div`
+const LoFiCatContainer = styled(motion.img)`
     position: absolute;
-    bottom: 18%;
-    left: 26.4%;
-    border-radius: 100%;
-    padding: 28px;
-    width: 8.5%;
-    height: 10%;
+    width: 9.8%;
+    bottom: 19.4%;
+    left: 27.4%;
+    opacity: 1;
+
+    border-radius: 13px;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-
     :hover {
         cursor: pointer;
     }
 `;
 
-const LoFiCat = () => {
+const LoFiCat = (catFrameRef: any) => {
     const [playbackRate, setPlaybackRate] = React.useState(0.75);
     const [c1] = useSound(catSoundSFX4, {
         playbackRate,
@@ -35,7 +40,14 @@ const LoFiCat = () => {
         c1();
     };
 
-    return <LoFiCatContainer onClick={cuteCat}></LoFiCatContainer>;
+    return (
+        <LoFiCatContainer
+            drag
+            dragConstraints={catFrameRef}
+            src={lofiCat}
+            onClick={cuteCat}
+        ></LoFiCatContainer>
+    );
 };
 
 export default LoFiCat;
