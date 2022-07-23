@@ -316,8 +316,9 @@ function App() {
         useRecoilState(fileDisplayAtom);
     const [welcomeDisplay, setWelcomeDisplay] =
         useRecoilState(welcomeDisplayAtom);
+
     //motion-framer draggable
-    const catFrameRef = React.useRef(null);
+    const catFrameRef = React.useRef<HTMLDivElement>(null);
 
     //welcomeDisplay
     const [cassetteSound] = useSound(cassetteSFX);
@@ -469,51 +470,44 @@ function App() {
     const [dot] = useSound(dotSFX);
     const [sc] = useSound(scSFX);
     const [slash] = useSound(slashSFX);
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    const keyMapObj = {
+        Digit1: kick,
+        Digit2: shaker,
+        Digit3: rim,
+        KeyZ: z,
+        KeyS: s,
+        KeyX: x,
+        KeyD: d,
+        KeyC: c,
+        KeyV: v,
+        KeyG: g,
+        KeyB: b,
+        KeyH: h,
+        KeyN: n,
+        KeyJ: j,
+        KeyM: m,
+        Comma: comma,
+        KeyL: l,
+        Period: dot,
+        Semicolon: sc,
+        Slash: slash,
+    };
 
-    const percHandler = (e: any) => {
-        console.log(e.code);
-        if (e.code === "Digit1") {
-            kick();
-        } else if (e.code === "Digit2") {
-            shaker();
-        } else if (e.code === "Digit3") {
-            rim();
-        } else if (e.code === "KeyZ") {
-            z();
-        } else if (e.code === "KeyS") {
-            s();
-        } else if (e.code === "KeyX") {
-            x();
-        } else if (e.code === "KeyD") {
-            d();
-        } else if (e.code === "KeyC") {
-            c();
-        } else if (e.code === "KeyV") {
-            v();
-        } else if (e.code === "KeyG") {
-            g();
-        } else if (e.code === "KeyB") {
-            b();
-        } else if (e.code === "KeyH") {
-            h();
-        } else if (e.code === "KeyN") {
-            n();
-        } else if (e.code === "KeyJ") {
-            j();
-        } else if (e.code === "KeyM") {
-            m();
-        } else if (e.code === "Comma") {
-            comma();
-        } else if (e.code === "KeyL") {
-            l();
-        } else if (e.code === "Period") {
-            dot();
-        } else if (e.code === "Semicolon") {
-            sc();
-        } else if (e.code === "Slash") {
-            slash();
-        } else {
-            return;
+    const percHandler = (e: React.KeyboardEvent) => {
+        //@ts-ignore
+        if (keyMapObj[e.code]) {
+            //@ts-ignore
+            keyMapObj[e.code]();
         }
     };
 

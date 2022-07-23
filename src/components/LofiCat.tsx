@@ -5,12 +5,9 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 //img
-import lofiCat from "../assets/img/cat.png";
-
-interface IcatProps {}
+import lofiCat from "../assets/img/cat.gif";
 
 /* Cat */
-// gif로 변경.
 const LoFiCatContainer = styled(motion.img)`
     position: absolute;
     width: 9.8%;
@@ -35,6 +32,7 @@ const LoFiCat = (catFrameRef: any) => {
         playbackRate,
         volume: 1,
     });
+
     const cuteCat = () => {
         setPlaybackRate(playbackRate + 0.1);
         c1();
@@ -43,7 +41,7 @@ const LoFiCat = (catFrameRef: any) => {
     return (
         <LoFiCatContainer
             drag
-            dragConstraints={catFrameRef}
+            dragConstraints={{ top: -600, right: 800, bottom: 100, left: -200 }}
             src={lofiCat}
             onClick={cuteCat}
         ></LoFiCatContainer>
