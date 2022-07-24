@@ -11,11 +11,12 @@ import styled from "styled-components";
 /* Ambience */
 import rainAmbience from "../assets/audio/ambience/rain.mp3";
 import { ambienceToggle } from "../ambienceAtom";
-
 import rain from "../assets/img/rain.png";
 import muteRain from "../assets/img/mute.png";
-
+/* isPlaying */
 import { useRecoilState } from "recoil";
+import { isPlayingState } from "../atoms";
+
 /* 
 0. useEffect 내부에 작성.
 1. 특정 시간마다 queue 재생.
@@ -32,30 +33,6 @@ export const queueObject = {
     LP6: new Audio(mel6SFX),
     LP7: new Audio(mel7SFX),
     LP8: new Audio(mel8SFX),
-};
-
-const soundHandler = async () => {
-    const localData = localStorage.getItem("LSLpState");
-    if (!localData) return;
-    const parsedLocalData = JSON.parse(localData);
-    const queue = parsedLocalData["lpState"]["player"];
-    console.log(queue);
-
-    const promiseArray: void[] = [];
-    //@ts-ignore
-    queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
-    /* 여기서 loop가 아닌 mp3는 조건문으로 따로 실행. */
-
-    /* if(!loop){
-        sound를 loop 내장함수로 돌려주고, queueState를 deps로 가지는 useEffect하나 파서,
-        queue에서 해당 LP를 삭제했을 경우 audio.volume=0으로 만들어주고,
-        다시 올려두면 audio.currentTime=0 & audio.volume=1 & audio.play()해주기.
-    } */
-
-    //@ts-ignore
-    promiseArray.map((i) => (i.currentTime = 0));
-    //@ts-ignore
-    promiseArray.map((i) => i.play());
 };
 
 const SoundWrapper = styled.div`
@@ -99,6 +76,8 @@ const UnMute = styled.img.attrs({ src: rain })`
 const rainSFX = new Audio(rainAmbience);
 const SoundBox = () => {
     const [rain, setRain] = useRecoilState(ambienceToggle);
+    const [playing, setPlaying] = useRecoilState(isPlayingState);
+
     const ambienceToggleHandler = () => {
         setRain((prev: any) => !prev);
     };
@@ -122,6 +101,58 @@ const SoundBox = () => {
             rainSFX.play();
         }
     };
+
+    /////
+    /////
+
+    const isPlaying = () => {
+        const localData = localStorage.getItem("LSLpState");
+        if (!localData) return;
+        const parsedLocalData = JSON.parse(localData);
+        const queue = parsedLocalData["lpState"]["player"];
+
+        if (!queue[0]) {
+            console.log("isNotPlaying");
+            return false;
+        } else {
+            console.log("isPlaying");
+            return true;
+        }
+    };
+
+    const soundHandler = () => {
+        const localData = localStorage.getItem("LSLpState");
+        if (!localData) return;
+        const parsedLocalData = JSON.parse(localData);
+        const queue = parsedLocalData["lpState"]["player"];
+        const promiseArray: void[] = [];
+
+        //setThePlayingState
+        const playing = isPlaying();
+        //@ts-ignore
+        setPlaying((prev) => playing);
+        console.log(playing);
+        //@ts-ignore
+        queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
+        /* 여기서 loop가 아닌 mp3는 조건문으로 따로 실행. */
+
+        /* if(!loop){
+        sound를 loop 내장함수로 돌려주고, queueState를 deps로 가지는 useEffect하나 파서,
+        queue에서 해당 LP를 삭제했을 경우 audio.volume=0으로 만들어주고,
+        다시 올려두면 audio.currentTime=0 & audio.volume=1 & audio.play()해주기.
+    } */
+        //@ts-ignore
+        promiseArray.map((i) => (i.currentTime = 0));
+        //@ts-ignore
+        promiseArray.map((i) => i.play());
+    };
+
+    ////
+    ////
+    ////
+    ////
+    ////
+    ////
 
     React.useEffect(() => {
         muteHandler();

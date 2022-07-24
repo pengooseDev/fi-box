@@ -2,6 +2,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createGlobalStyle } from "styled-components";
 import { RecoilRoot } from "recoil";
+import mouseImg from "./assets/img/mouseDefault.png";
+import mouseCur from "./assets/img/mouseDefault.cur";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -17,6 +19,10 @@ body{
     background: #0E011C;
     font-family: 'Source Sans Pro', sans-serif;
 }
+
+body, html {cursor: url(mouseImg), url(mouseCur), auto}
+a {cursor: url(mouseImg), url(mouseCur), auto}
+
 
 //   Reset CSS
     html, body, div, span, applet, object, iframe,

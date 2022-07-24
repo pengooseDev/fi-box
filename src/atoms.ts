@@ -67,3 +67,8 @@ export const lpTheme = atom<ILpTheme>({
         LP8: "red",
     },
 });
+
+export const isPlayingState = atom({
+    key: "isPlayingState",
+    default: false,
+});

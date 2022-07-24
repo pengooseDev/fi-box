@@ -1,6 +1,6 @@
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
@@ -10,6 +10,7 @@ import {
     lpQueueDisplayAtom,
     lpState,
     IPlayerQueueLength,
+    isPlayingState,
 } from "./atoms";
 
 import useSound from "use-sound";
@@ -21,16 +22,17 @@ import Header from "./components/Helmet";
 import LoFiCat from "./components/LofiCat";
 
 /* fileBoard */
-import fileImg from "./assets/img/file1.png";
+import fileImg from "./assets/img/file.gif";
 import lpPlayerGif from "./assets/img/lp.gif";
+import soundWave from "./assets/img/soundWave.gif";
 
-//welcome
+/* welcome */
 import cassetteSFX from "./assets/audio/cassette.mp3";
 
-//SoundStateHandler
+/* SoundStateHandler */
 import SoundStateHandler from "./components/SoundStateHandler";
 
-// fileBoard sound
+/* fileBoard sound */
 import onClickSFX from "./assets/audio/onDown.mp3";
 import openSoundSFX from "./assets/audio/onUpOpen.mp3";
 import closeSoundSFX from "./assets/audio/onUpClose.mp3";
@@ -41,8 +43,11 @@ import playerUpOpenSFX from "./assets/audio/playerUpOpen.mp3";
 import playerUpCloseSFX from "./assets/audio/playerUpClose.mp3";
 import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 
-//soundBox
+/* soundBox */
 import SoundBox from "./components/soundFunc";
+
+/* Motion-framer */
+import { motion, AnimatePresence } from "framer-motion";
 
 /* Keyboard Mapping */
 import zSFX from "./assets/audio/keyboardMapping/z.mp3";
@@ -180,6 +185,19 @@ const LpPlayerInteractive = styled.img.attrs({ src: lpPlayerGif })`
     }
 `;
 
+const SoundWave = styled(motion.img)`
+    position: absolute;
+    bottom: 46.5%;
+    right: 20.5%;
+
+    //prevent Drag Event
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+`;
+
 //Droppable 담당.
 const LpPlayerDrop = styled.div`
     position: absolute;
@@ -310,6 +328,25 @@ const WelcomeLabel = styled.div`
     width: 100%;
     height: 33%;
 `;
+
+/* Framer Motion */
+const soundWaveVar = {
+    from: {
+        opacity: 0,
+        y: 20,
+        rotateZ: "16deg",
+    },
+    to: {
+        opacity: 1,
+        y: 0,
+        rotateZ: "16deg",
+    },
+    exit: {
+        opacity: 0,
+        y: -40,
+        transition: { duration: 0.3 },
+    },
+};
 
 function App() {
     //Atom
@@ -504,6 +541,8 @@ function App() {
         }
     };
 
+    /* soundWaveHandler */
+    const isPlaying = useRecoilValue(isPlayingState);
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Header></Header>
@@ -581,6 +620,20 @@ function App() {
                         )}
                     </Droppable>
                 </LpPlayerDrop>
+
+                {/* Framer-Motion */}
+                <AnimatePresence>
+                    {isPlaying ? (
+                        <SoundWave
+                            src={soundWave}
+                            variants={soundWaveVar}
+                            initial="from"
+                            animate="to"
+                            exit="exit"
+                        />
+                    ) : null}
+                </AnimatePresence>
+
                 <LpPlayerInteractive
                     onClick={lpPlayerClickHandler}
                     onMouseDown={playerMouseDown}
