@@ -286,11 +286,11 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
     overflow-x: hidden;
 `;
 
-interface IWelcomeBtn {
+interface IWelcomeOverlay {
     welcomeDisplay: boolean;
 }
 
-const WelcomeBtn = styled.div<IWelcomeBtn>`
+const WelcomeOverlay = styled(motion.div)<IWelcomeOverlay>`
     z-index: 1;
     width: 100%;
     height: 100%;
@@ -298,22 +298,25 @@ const WelcomeBtn = styled.div<IWelcomeBtn>`
     position: fixed;
     top: 0;
     left: 0;
-    transition: 0.2s ease-in-out;
-    ${(props) =>
-        props?.welcomeDisplay
-            ? css`
-                  opacity: 1;
-              `
-            : css`
-                  opacity: 0;
-                  visibility: hidden;
-              `};
     :hover {
         cursor: pointer;
     }
 `;
 
-const WelcomeLabel = styled.div`
+const welcomeOverlayVar = {
+    from: { scale: 1 },
+    to: { scale: 1 },
+    exit: {
+        scaleY: 0,
+        transition: { when: "afterChildren", delay: 0.5, duration: 0.7 },
+    },
+    afterEffect: {
+        transition: { delay: 1.2, duration: 0.7 },
+        scaleX: 0.1,
+    },
+};
+
+const WelcomeLabel = styled(motion.div)`
     position: absolute;
     display: flex;
     align-items: center;
@@ -329,6 +332,12 @@ const WelcomeLabel = styled.div`
     width: 100%;
     height: 33%;
 `;
+
+const welcomeLabelVar = {
+    from: { scale: 1 },
+    to: { scale: 1, transition: { duration: 0.6 } },
+    exit: { scale: 0, transition: { duration: 0.6 } },
+};
 
 /* Framer Motion */
 const soundWaveVar = {
@@ -353,11 +362,12 @@ const fileVar = {
     from: {
         opacity: 0,
         x: -120,
-        y: -200,
+        y: -60,
         transfrom: { scaleX: 0.1 },
         scaleX: 0.1,
         scaleY: 0.1,
     },
+
     to: {
         opacity: 1,
         x: 0,
@@ -365,10 +375,11 @@ const fileVar = {
         scaleX: 1,
         scaleY: 1,
     },
+
     exit: {
         opacity: 0,
         x: -120,
-        y: -120,
+        y: -60,
         transition: { duration: 0.3 },
         scaleX: 0.1,
         scaleY: 0.1,
@@ -676,12 +687,31 @@ function App() {
                 />
                 <SoundStateHandler></SoundStateHandler>
                 <LoFiCat catFrameRef={catFrameRef} />
-                <WelcomeBtn
-                    onClick={welcomeClickHandler}
-                    welcomeDisplay={welcomeDisplay}
-                >
-                    <WelcomeLabel>Click Me!</WelcomeLabel>
-                </WelcomeBtn>
+                <AnimatePresence>
+                    {welcomeDisplay ? (
+                        <WelcomeOverlay
+                            variants={welcomeOverlayVar}
+                            initial="from"
+                            animate="to"
+                            exit="exit"
+                            transition={{
+                                default: { duration: 0.7 },
+                                afterEffect: { duration: 1, delay: 0.7 },
+                            }}
+                            onClick={welcomeClickHandler}
+                            welcomeDisplay={welcomeDisplay}
+                        >
+                            <WelcomeLabel
+                                variants={welcomeLabelVar}
+                                initial="from"
+                                animate="to"
+                                exit="exit"
+                            >
+                                Click Me!
+                            </WelcomeLabel>
+                        </WelcomeOverlay>
+                    ) : null}
+                </AnimatePresence>
             </Wrapper>
         </DragDropContext>
     );
