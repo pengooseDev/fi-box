@@ -13,15 +13,15 @@ const GlobalStyle = createGlobalStyle`
 
 body{
     overflow-y: hidden;
-    background: linear-gradient(30deg, #29046D, #2F0557);
     display: flex;
     justify-content: center;
-    background: #0E011C;
+    background: #100120;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-body, html {cursor: url(mouseImg), url(mouseCur), auto}
-a {cursor: url(mouseImg), url(mouseCur), auto}
+body, html {
+    cursor: url(${mouseImg}), url(${mouseCur}), auto};
+a {cursor: url(${mouseImg}), url(${mouseCur}), auto};
 
 
 //   Reset CSS

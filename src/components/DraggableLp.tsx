@@ -14,6 +14,7 @@ import lp3Img from "../assets/img/lp3.png";
 const LpCard = styled.div`
     //background: rgba(72, 69, 61, 0.7);
     position: relative;
+    z-index: 0;
     border-radius: 50%;
     top: auto !important;
     left: auto !important;

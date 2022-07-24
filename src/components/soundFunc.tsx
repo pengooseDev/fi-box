@@ -147,13 +147,6 @@ const SoundBox = () => {
         promiseArray.map((i) => i.play());
     };
 
-    ////
-    ////
-    ////
-    ////
-    ////
-    ////
-
     React.useEffect(() => {
         muteHandler();
     }, [rain]);

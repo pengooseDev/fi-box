@@ -46,6 +46,9 @@ import bgplayerCloseSFX from "./assets/audio/bgPlayerClose.mp3";
 /* soundBox */
 import SoundBox from "./components/soundFunc";
 
+/* BackgroundOut */
+import BackgroundOut from "./components/backgroundOut";
+
 /* Motion-framer */
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -80,7 +83,8 @@ import rimSFX from "./assets/audio/perc/rim.mp3";
 const Wrapper = styled.div`
     display: inline-block;
     position: relative;
-    background: #0e011c;
+    z-index: 1;
+    background: teal;
     :focus {
         border: none;
         outline: none;
@@ -126,7 +130,7 @@ const FileImg = styled.img.attrs({ src: fileImg })`
     }
 `;
 
-const FileContainer = styled.div`
+const FileContainer = styled(motion.div)`
     position: absolute;
     top: 14.2%;
     left: 30.5%;
@@ -202,12 +206,10 @@ const SoundWave = styled(motion.img)`
 const LpPlayerDrop = styled.div`
     position: absolute;
     padding: 1% 0px;
-
     bottom: 29.5%;
     right: 22.5%;
     height: 12.5%;
     width: 15.8%;
-
     border-radius: 30%;
 `;
 
@@ -221,7 +223,6 @@ const LpPlayerContainer = styled.div`
 
 const PlayerBoard = styled.div<IPlayerQueueLength>`
     position: fixed;
-
     z-index: 3;
     //Default
 
@@ -344,7 +345,33 @@ const soundWaveVar = {
     exit: {
         opacity: 0,
         y: -40,
+        transition: { duration: 0.7 },
+    },
+};
+
+const fileVar = {
+    from: {
+        opacity: 0,
+        x: -120,
+        y: -200,
+        transfrom: { scaleX: 0.1 },
+        scaleX: 0.1,
+        scaleY: 0.1,
+    },
+    to: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+    },
+    exit: {
+        opacity: 0,
+        x: -120,
+        y: -120,
         transition: { duration: 0.3 },
+        scaleX: 0.1,
+        scaleY: 0.1,
     },
 };
 
@@ -551,7 +578,7 @@ function App() {
             <Wrapper ref={catFrameRef} onKeyDown={percHandler} tabIndex={0}>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
                 <BackImg onClick={backgroundClickHandler}></BackImg>
-
+                <BackgroundOut />
                 {/* absolute를 Wrapper에 걸고 아래 IMG랑 그 아래 FileDisplay에 relative 걸어보기. */}
                 {/*File board*/}
                 <FileImg
@@ -559,30 +586,38 @@ function App() {
                     onMouseDown={lpMouseDown}
                     onMouseUp={lpMouseUp}
                 />
-                {fileDisplayToggle ? (
-                    <FileContainer>
-                        <Droppable droppableId="file">
-                            {(provided) => (
-                                //드로퍼블 child 시작
+                <AnimatePresence>
+                    {fileDisplayToggle ? (
+                        <FileContainer
+                            variants={fileVar}
+                            initial="from"
+                            animate="to"
+                            exit="exit"
+                        >
+                            <Droppable droppableId="file">
+                                {(provided) => (
+                                    //드로퍼블 child 시작
 
-                                <FileBoard
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                >
-                                    {lps["file"].map((v, i) => (
-                                        <DragabbleLp
-                                            v={v}
-                                            i={i}
-                                            key={v}
-                                        ></DragabbleLp>
-                                    ))}
-                                    {provided.placeholder}
-                                </FileBoard>
-                                //드로퍼블 child 끝
-                            )}
-                        </Droppable>
-                    </FileContainer>
-                ) : null}
+                                    <FileBoard
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                    >
+                                        {lps["file"].map((v, i) => (
+                                            <DragabbleLp
+                                                v={v}
+                                                i={i}
+                                                key={v}
+                                            ></DragabbleLp>
+                                        ))}
+                                        {provided.placeholder}
+                                    </FileBoard>
+                                    //드로퍼블 child 끝
+                                )}
+                            </Droppable>
+                        </FileContainer>
+                    ) : null}
+                </AnimatePresence>
+
                 {/* LP Board */}
                 <LpPlayerContainer>
                     <Droppable droppableId="player">
