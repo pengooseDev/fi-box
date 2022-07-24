@@ -41,7 +41,7 @@ const LoFiCat = (catFrameRef: any) => {
     return (
         <LoFiCatContainer
             drag
-            dragConstraints={{ top: -600, right: 800, bottom: 100, left: -200 }}
+            dragConstraints={{ top: -500, right: 800, bottom: 100, left: -200 }}
             transition={{ mass: 0, bounce: 1, damping: 1, type: "spring" }}
             src={lofiCat}
             onClick={cuteCat}

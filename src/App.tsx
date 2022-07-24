@@ -84,7 +84,7 @@ const Wrapper = styled.div`
     display: inline-block;
     position: relative;
     z-index: 1;
-    background: teal;
+    background: #100120;
     :focus {
         border: none;
         outline: none;
