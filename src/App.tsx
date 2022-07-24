@@ -19,8 +19,10 @@ import DragabbleLp from "./components/DraggableLp";
 import Header from "./components/Helmet";
 /* Cat */
 import LoFiCat from "./components/LofiCat";
+
 /* fileBoard */
 import fileImg from "./assets/img/file1.png";
+import lpPlayerGif from "./assets/img/lp.gif";
 
 //welcome
 import cassetteSFX from "./assets/audio/cassette.mp3";
@@ -158,21 +160,21 @@ const FileBoard = styled.ul`
 
 //LP Board & Queue
 //보이는 PlayerImg & displayToggleHander내장.
-const LpPlayerInteractive = styled.div`
+const LpPlayerInteractive = styled.img.attrs({ src: lpPlayerGif })`
     position: absolute;
     padding: 1% 0px;
-    opacity: 0.3;
-    bottom: 29.5%;
-    right: 22.5%;
+    bottom: 28.3%;
+    right: 23%;
+    //filter: drop-shadow(0 0 10px bisque);
 
-    height: 12.5%;
-    width: 15.8%;
+    width: 14.8%;
     border-radius: 30%;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
+
     :hover {
         cursor: pointer;
     }
@@ -470,16 +472,7 @@ function App() {
     const [dot] = useSound(dotSFX);
     const [sc] = useSound(scSFX);
     const [slash] = useSound(slashSFX);
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
+
     const keyMapObj = {
         Digit1: kick,
         Digit2: shaker,
