@@ -20,11 +20,11 @@ body{
 }
 
 body, html {
-    cursor: url(${mouseImg}) 15 15, url(${mouseCur}) 15 15, auto
+    cursor: url(${mouseImg}) 6 6, url(${mouseCur}) 6 6, auto
 };
 
 a {
-    cursor: url(${mouseImg}) 15 15, url(${mouseCur}) 15 15, auto
+    cursor: url(${mouseImg}) 6 6, url(${mouseCur}) 6 6, auto
 };
 
 
