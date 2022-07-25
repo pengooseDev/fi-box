@@ -420,6 +420,10 @@ function App() {
             setFileDisplayToggle((prev) => !prev);
             if (lpPlayerDisplay) {
                 bgplayerClose();
+
+                if (windowDisplay) {
+                    setWindowDisplay((prev) => !prev);
+                }
                 return setLpPlayerDisplay((prev) => !prev);
             }
         }

@@ -52,12 +52,12 @@ const WindowImg = styled(motion.img)`
 `;
 
 const NicoSenpaiImg = styled.img.attrs({ src: nicoSenpaiSrc })`
-    width: 130%;
+    width: 122%;
     position: absolute;
     z-index: 3;
     transform: rotateZ(-15deg);
-    top: 12%;
-    left: 35%;
+    top: 32%;
+    left: 45%;
 
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -97,6 +97,12 @@ const ExitComp = styled.div`
     }
 `;
 
+const NicoAnchor = styled.a`
+    :hover {
+        cursor: pointer;
+    }
+`;
+
 const WindowContainer = () => {
     const [windowDisplay, setWindowDisplay] =
         useRecoilState(windowDisplayState);
@@ -112,7 +118,6 @@ const WindowContainer = () => {
     };
 
     React.useEffect(() => {
-        console.log(windowDisplay);
         if (windowDisplay) {
             return windowOpenSFX();
         }
@@ -125,7 +130,12 @@ const WindowContainer = () => {
             <AnimatePresence>
                 {windowDisplay ? (
                     <RelativeWrapper>
-                        <NicoSenpaiImg />
+                        <NicoAnchor
+                            target="_blanck"
+                            href="https://nomadcoders.co/"
+                        >
+                            <NicoSenpaiImg />
+                        </NicoAnchor>
                         <WindowImg src={windowSrc}></WindowImg>
                         <ExitComp onClick={exitHandler} />
                     </RelativeWrapper>
