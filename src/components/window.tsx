@@ -88,7 +88,7 @@ const WindowDisplayToggle = styled.div`
 const ExitComp = styled.div`
     width: 27%;
     height: 27%;
-    z-index: 1;
+    z-index: 5;
     position: absolute;
     right: -70%;
     top: -13%;
