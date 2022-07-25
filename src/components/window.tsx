@@ -52,18 +52,20 @@ const WindowImg = styled(motion.img)`
 `;
 
 const NicoSenpaiImg = styled.img.attrs({ src: nicoSenpaiSrc })`
-    width: 122%;
+    width: 107%;
     position: absolute;
     z-index: 3;
     transform: rotateZ(-15deg);
-    top: 32%;
-    left: 45%;
-
+    top: 52%;
+    left: 55%;
+    border-radius: 15%;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
+
+    filter: drop-shadow(10px 10px 5px #4444dd);
 `;
 
 const WindowDisplayToggle = styled.div`

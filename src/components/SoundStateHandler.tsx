@@ -49,14 +49,6 @@ const VolumeInput = styled.input.attrs({
     }
 `;
 
-const PlayStateBar = styled.div`
-    position: absolute;
-    bottom: 28.6%;
-    right: 36.35%; //leftSide
-    //right: 22.35%; //rightSide
-    display: flex;
-`;
-
 const barAnimation = keyframes`
     0%{
         transform: scale(1,1)
@@ -102,10 +94,16 @@ const Bar = styled.div<IBar>`
                   :nth-child(6) {
                       animation: ${barAnimation} infinite 0.7s;
                   }
-                  :nth-child(7) {
-                      animation: ${barAnimation} infinite 1.6s;
-                  }
               `}
+`;
+
+const PlayStateBar = styled.div`
+    position: absolute;
+    transform: rotateZ(0deg) rotateX(215deg) rotateY(35deg) skew(0deg);
+    bottom: 28.3%;
+    right: 25%;
+    width: 6%;
+    display: flex;
 `;
 
 const PlayerBar = styled.input.attrs({
@@ -115,14 +113,15 @@ const PlayerBar = styled.input.attrs({
     max: 11.296,
     step: 0.01,
 })`
+    transform: rotateZ(-26deg);
     position: absolute;
-    bottom: 27.6%;
-    right: 24.95%;
-    width: 11%;
+    bottom: 29%;
+    right: 23%;
+    width: 6%;
 
     //InputRange CSS
     overflow: hidden;
-    height: 2px;
+    height: 3px;
     -webkit-appearance: none;
     margin: 10px 0;
     background: transparent;
@@ -184,7 +183,6 @@ const SoundStateHandler = () => {
     return (
         <>
             <PlayStateBar>
-                <Bar playState={playState} />
                 <Bar playState={playState} />
                 <Bar playState={playState} />
                 <Bar playState={playState} />
