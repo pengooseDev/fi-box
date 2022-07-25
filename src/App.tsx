@@ -1,7 +1,7 @@
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState, useRecoilValue } from "recoil";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import backgroundImg from "./assets/img/background.png";
 import { defaultFileAnimation, hoverAnimation } from "./components/animation";
 import {
@@ -11,6 +11,7 @@ import {
     lpState,
     IPlayerQueueLength,
     isPlayingState,
+    windowDisplayState,
 } from "./atoms";
 
 import useSound from "use-sound";
@@ -52,6 +53,8 @@ import BackgroundOut from "./components/backgroundOut";
 /* Motion-framer */
 import { motion, AnimatePresence } from "framer-motion";
 
+import WindowContainer from "./components/window";
+
 /* Keyboard Mapping */
 import zSFX from "./assets/audio/keyboardMapping/z.mp3";
 import sSFX from "./assets/audio/keyboardMapping/s.mp3";
@@ -76,6 +79,8 @@ import kickSFX from "./assets/audio/perc/kick.mp3";
 import shakerSFX from "./assets/audio/perc/shaker.mp3";
 import rimSFX from "./assets/audio/perc/rim.mp3";
 
+/* Variants */
+import { welcomeLabelVar, soundWaveVar, fileVar } from "./variants";
 //DND 사용시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
 //key를 Index로 한 경우 Complie Err 발생.
@@ -286,11 +291,19 @@ const PlayerBoard = styled.div<IPlayerQueueLength>`
     overflow-x: hidden;
 `;
 
-interface IWelcomeOverlay {
-    welcomeDisplay: boolean;
-}
+const WelcomeOverlayToggle = styled.div`
+    z-index: 2;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    :hover {
+        cursor: pointer;
+    }
+`;
 
-const WelcomeOverlay = styled(motion.div)<IWelcomeOverlay>`
+const WelcomeOverlay = styled(motion.div)`
     z-index: 1;
     width: 100%;
     height: 100%;
@@ -298,9 +311,6 @@ const WelcomeOverlay = styled(motion.div)<IWelcomeOverlay>`
     position: fixed;
     top: 0;
     left: 0;
-    :hover {
-        cursor: pointer;
-    }
 `;
 
 const welcomeOverlayVar = {
@@ -333,59 +343,6 @@ const WelcomeLabel = styled(motion.div)`
     height: 33%;
 `;
 
-const welcomeLabelVar = {
-    from: { scale: 1 },
-    to: { scale: 1, transition: { duration: 0.6 } },
-    exit: { scale: 0, transition: { duration: 0.6 } },
-};
-
-/* Framer Motion */
-const soundWaveVar = {
-    from: {
-        opacity: 0,
-        y: 20,
-        rotateZ: "16deg",
-    },
-    to: {
-        opacity: 1,
-        y: 0,
-        rotateZ: "16deg",
-    },
-    exit: {
-        opacity: 0,
-        y: -40,
-        transition: { duration: 0.7 },
-    },
-};
-
-const fileVar = {
-    from: {
-        opacity: 0,
-        x: -120,
-        y: -60,
-        transfrom: { scaleX: 0.1 },
-        scaleX: 0.1,
-        scaleY: 0.1,
-    },
-
-    to: {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        scaleX: 1,
-        scaleY: 1,
-    },
-
-    exit: {
-        opacity: 0,
-        x: -120,
-        y: -60,
-        transition: { duration: 0.3 },
-        scaleX: 0.1,
-        scaleY: 0.1,
-    },
-};
-
 function App() {
     //Atom
     const [lps, setLps] = useRecoilState(lpState);
@@ -411,11 +368,14 @@ function App() {
     const [playerUpClose] = useSound(playerUpCloseSFX);
     const [bgplayerClose] = useSound(bgplayerCloseSFX);
 
+    const [windowDisplay, setWindowDisplay] =
+        useRecoilState(windowDisplayState);
+
     const welcomeClickHandler = () => {
         if (welcomeDisplay) {
             cassetteSound();
+            return setWelcomeDisplay((prev) => !prev);
         }
-        setWelcomeDisplay((prev) => !prev);
     };
 
     //Mel
@@ -467,7 +427,10 @@ function App() {
         if (lpPlayerDisplay) {
             bgplayerClose();
             setLpPlayerDisplay((prev) => !prev);
-            return;
+        }
+
+        if (windowDisplay) {
+            setWindowDisplay((prev) => !prev);
         }
     };
 
@@ -585,6 +548,9 @@ function App() {
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Header></Header>
             {/* React Helmet */}
+            {welcomeDisplay ? (
+                <WelcomeOverlayToggle onClick={welcomeClickHandler} />
+            ) : null}
             {welcomeDisplay ? null : <SoundBox />}
             <Wrapper ref={catFrameRef} onKeyDown={percHandler} tabIndex={0}>
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
@@ -628,7 +594,7 @@ function App() {
                         </FileContainer>
                     ) : null}
                 </AnimatePresence>
-
+                <WindowContainer />
                 {/* LP Board */}
                 <LpPlayerContainer>
                     <Droppable droppableId="player">
@@ -698,8 +664,6 @@ function App() {
                                 default: { duration: 0.7 },
                                 afterEffect: { duration: 1, delay: 0.7 },
                             }}
-                            onClick={welcomeClickHandler}
-                            welcomeDisplay={welcomeDisplay}
                         >
                             <WelcomeLabel
                                 variants={welcomeLabelVar}

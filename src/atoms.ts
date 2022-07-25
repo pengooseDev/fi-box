@@ -72,3 +72,8 @@ export const isPlayingState = atom({
     key: "isPlayingState",
     default: false,
 });
+
+export const windowDisplayState = atom({
+    key: "windowDisplayState",
+    default: false,
+});

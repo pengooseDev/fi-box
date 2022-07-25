@@ -101,10 +101,6 @@ const SoundBox = () => {
             rainSFX.play();
         }
     };
-
-    /////
-    /////
-
     const isPlaying = () => {
         const localData = localStorage.getItem("LSLpState");
         if (!localData) return;
@@ -112,10 +108,8 @@ const SoundBox = () => {
         const queue = parsedLocalData["lpState"]["player"];
 
         if (!queue[0]) {
-            console.log("isNotPlaying");
             return false;
         } else {
-            console.log("isPlaying");
             return true;
         }
     };
@@ -131,16 +125,8 @@ const SoundBox = () => {
         const playing = isPlaying();
         //@ts-ignore
         setPlaying((prev) => playing);
-        console.log(playing);
         //@ts-ignore
         queue.map((i: string) => promiseArray.push(queueObject[`${i}`]));
-        /* 여기서 loop가 아닌 mp3는 조건문으로 따로 실행. */
-
-        /* if(!loop){
-        sound를 loop 내장함수로 돌려주고, queueState를 deps로 가지는 useEffect하나 파서,
-        queue에서 해당 LP를 삭제했을 경우 audio.volume=0으로 만들어주고,
-        다시 올려두면 audio.currentTime=0 & audio.volume=1 & audio.play()해주기.
-    } */
         //@ts-ignore
         promiseArray.map((i) => (i.currentTime = 0));
         //@ts-ignore
