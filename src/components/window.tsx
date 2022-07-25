@@ -32,9 +32,9 @@ const RelativeWrapper = styled(motion.div)`
 `;
 
 const relativeWrapperVar = {
-    from: {},
-    to: {},
-    exit: {},
+    from: { opacity: 0, x: -350, y: 120 },
+    to: { opacity: 1, x: -350, y: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, x: -350, y: -120, transition: { duration: 0.6 } },
 };
 
 const WindowImg = styled(motion.img)`
@@ -131,7 +131,12 @@ const WindowContainer = () => {
             <WindowDisplayToggle onClick={windowToggleHandler} />
             <AnimatePresence>
                 {windowDisplay ? (
-                    <RelativeWrapper>
+                    <RelativeWrapper
+                        variants={relativeWrapperVar}
+                        initial="from"
+                        animate="to"
+                        exit="exit"
+                    >
                         <NicoAnchor
                             target="_blanck"
                             href="https://nomadcoders.co/"
