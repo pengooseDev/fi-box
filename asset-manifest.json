@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/fi-box/static/js/main.7d972b3c.js",
+    "main.js": "/fi-box/static/js/main.b040330d.js",
     "static/js/845.8c0244ed.chunk.js": "/fi-box/static/js/845.8c0244ed.chunk.js",
     "static/media/rain.mp3": "/fi-box/static/media/rain.b2aa233977f4c7383e1d.mp3",
     "static/media/9.gif": "/fi-box/static/media/9.76dffd26562ff48ee61d.gif",
+    "static/media/info.png": "/fi-box/static/media/info.6d6c757e2d387e169800.png",
     "static/media/background.png": "/fi-box/static/media/background.22f484d8bd58a3d209b8.png",
-    "static/media/info.png": "/fi-box/static/media/info.eea5d80098f72eff2dfd.png",
     "static/media/lp1.mp3": "/fi-box/static/media/lp1.cda64fdf65025d149d64.mp3",
     "static/media/lp2.mp3": "/fi-box/static/media/lp2.40abc8e327a2904a1a1b.mp3",
     "static/media/lp3.mp3": "/fi-box/static/media/lp3.cd047116915695c35cd1.mp3",
@@ -57,10 +57,10 @@
     "static/media/playerUpClose.mp3": "/fi-box/static/media/playerUpClose.af558a961b27416039f4.mp3",
     "static/media/playerUpOpen.mp3": "/fi-box/static/media/playerUpOpen.4dd28713c112b2390250.mp3",
     "index.html": "/fi-box/index.html",
-    "main.7d972b3c.js.map": "/fi-box/static/js/main.7d972b3c.js.map",
+    "main.b040330d.js.map": "/fi-box/static/js/main.b040330d.js.map",
     "845.8c0244ed.chunk.js.map": "/fi-box/static/js/845.8c0244ed.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.7d972b3c.js"
+    "static/js/main.b040330d.js"
   ]
 }
