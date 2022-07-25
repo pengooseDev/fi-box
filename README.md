@@ -1,3 +1,9 @@
 # Fi-Box
-![background](https://user-images.githubusercontent.com/73521518/180642911-61a30789-2ef1-450b-898e-7aabca82d41b.png)
+Aritist : OBraen(eanben4123@naver.com)
+
+![information](https://user-images.githubusercontent.com/73521518/180703378-13d71fbc-53cd-4bfe-bd8a-3edaa40293fb.png)
+
+
+
+
 
