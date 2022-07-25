@@ -33,14 +33,14 @@ const RelativeWrapper = styled(motion.div)`
 
 const relativeWrapperVar = {
     from: { opacity: 0, x: -350, y: 120 },
-    to: { opacity: 1, x: -350, y: 0, transition: { duration: 0.6 } },
-    exit: { opacity: 0, x: -350, y: -120, transition: { duration: 0.6 } },
+    to: { opacity: 1, x: -350, y: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -350, y: -120, transition: { duration: 0.3 } },
 };
 
 const WindowImg = styled(motion.img)`
     transform: rotateZ(-15deg);
     position: absolute;
-    z-index: 1;
+    z-index: 5;
     top: 2%;
     width: 200%;
 
@@ -54,7 +54,7 @@ const WindowImg = styled(motion.img)`
 const NicoSenpaiImg = styled.img.attrs({ src: nicoSenpaiSrc })`
     width: 107%;
     position: absolute;
-    z-index: 3;
+    z-index: 6;
     transform: rotateZ(-15deg);
     top: 52%;
     left: 55%;

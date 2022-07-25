@@ -20,8 +20,12 @@ body{
 }
 
 body, html {
-    cursor: url(${mouseImg}), url(${mouseCur}), auto};
-a {cursor: url(${mouseImg}), url(${mouseCur}), auto};
+    cursor: url(${mouseImg}) 15 15, url(${mouseCur}) 15 15, auto
+};
+
+a {
+    cursor: url(${mouseImg}) 15 15, url(${mouseCur}) 15 15, auto
+};
 
 
 //   Reset CSS

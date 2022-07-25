@@ -108,7 +108,6 @@ const PlayStateBar = styled.div`
 
 const PlayerBar = styled.input.attrs({
     type: "range",
-    //disabled: true,
     min: 0,
     max: 11.296,
     step: 0.01,

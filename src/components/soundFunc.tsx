@@ -5,8 +5,6 @@ import mel3SFX from "../assets/audio/lp/lp3.mp3";
 import mel4SFX from "../assets/audio/lp/lp4.mp3";
 import mel5SFX from "../assets/audio/lp/lp5.mp3";
 import mel6SFX from "../assets/audio/lp/lp6.mp3";
-import mel7SFX from "../assets/audio/lp/lp7.mp3";
-import mel8SFX from "../assets/audio/lp/lp8.mp3";
 import styled from "styled-components";
 /* Ambience */
 import rainAmbience from "../assets/audio/ambience/rain.mp3";
@@ -31,8 +29,6 @@ export const queueObject = {
     LP4: new Audio(mel4SFX),
     LP5: new Audio(mel5SFX),
     LP6: new Audio(mel6SFX),
-    LP7: new Audio(mel7SFX),
-    LP8: new Audio(mel8SFX),
 };
 
 const SoundWrapper = styled.div`

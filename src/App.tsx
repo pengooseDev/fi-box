@@ -17,6 +17,7 @@ import {
 import useSound from "use-sound";
 import bgCloseSFX from "./assets/audio/bgClose.mp3";
 import DragabbleLp from "./components/DraggableLp";
+
 /* Header */
 import Header from "./components/Helmet";
 /* Cat */
@@ -50,10 +51,20 @@ import SoundBox from "./components/soundFunc";
 /* BackgroundOut */
 import BackgroundOut from "./components/backgroundOut";
 
-/* Motion-framer */
-import { motion, AnimatePresence } from "framer-motion";
+/* Info */
+import infoSrc from "./assets/img/info.png";
+import infoToggleSrc from "./assets/img/infoToggle.png";
+import {
+    InfoDisplay,
+    InfoToggle,
+    InfoDisplayVar,
+} from "./components/information";
+import { infoToggleState } from "./atoms";
 
 import WindowContainer from "./components/window";
+
+/* Motion-framer */
+import { motion, AnimatePresence } from "framer-motion";
 
 /* Keyboard Mapping */
 import zSFX from "./assets/audio/keyboardMapping/z.mp3";
@@ -78,6 +89,9 @@ import slashSFX from "./assets/audio/keyboardMapping/slash.mp3";
 import kickSFX from "./assets/audio/perc/kick.mp3";
 import shakerSFX from "./assets/audio/perc/shaker.mp3";
 import rimSFX from "./assets/audio/perc/rim.mp3";
+
+import flipSrc from "./assets/audio/flip.mp3";
+import unflippedSrc from "./assets/audio/unflipped.mp3";
 
 /* Variants */
 import { welcomeLabelVar, soundWaveVar, fileVar } from "./variants";
@@ -370,6 +384,7 @@ function App() {
 
     const [windowDisplay, setWindowDisplay] =
         useRecoilState(windowDisplayState);
+    const [infoState, setInfoState] = useRecoilState(infoToggleState);
 
     const welcomeClickHandler = () => {
         if (welcomeDisplay) {
@@ -420,14 +435,16 @@ function App() {
             setFileDisplayToggle((prev) => !prev);
             if (lpPlayerDisplay) {
                 bgplayerClose();
-
                 if (windowDisplay) {
                     setWindowDisplay((prev) => !prev);
+                }
+
+                if (infoState) {
+                    infoToggleHandler();
                 }
                 return setLpPlayerDisplay((prev) => !prev);
             }
         }
-
         if (lpPlayerDisplay) {
             bgplayerClose();
             setLpPlayerDisplay((prev) => !prev);
@@ -435,6 +452,12 @@ function App() {
 
         if (windowDisplay) {
             setWindowDisplay((prev) => !prev);
+        }
+
+        if (infoState) {
+            unflipped();
+
+            setInfoState((prev) => !prev);
         }
     };
 
@@ -548,6 +571,19 @@ function App() {
 
     /* soundWaveHandler */
     const isPlaying = useRecoilValue(isPlayingState);
+    const [flip] = useSound(flipSrc);
+    const [unflipped] = useSound(unflippedSrc);
+
+    const infoToggleHandler = () => {
+        if (infoState) {
+            unflipped();
+            return setInfoState((prev) => !prev);
+        }
+
+        flip();
+        return setInfoState((prev) => !prev);
+    };
+
     return (
         <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <Header></Header>
@@ -555,10 +591,26 @@ function App() {
             {welcomeDisplay ? (
                 <WelcomeOverlayToggle onClick={welcomeClickHandler} />
             ) : null}
+            {welcomeDisplay ? null : (
+                <InfoToggle onClick={infoToggleHandler} src={infoToggleSrc} />
+            )}
             {welcomeDisplay ? null : <SoundBox />}
             <Wrapper ref={catFrameRef} onKeyDown={percHandler} tabIndex={0}>
+                <AnimatePresence>
+                    {infoState ? (
+                        <InfoDisplay
+                            onClick={infoToggleHandler}
+                            src={infoSrc}
+                            variants={InfoDisplayVar}
+                            initial="from"
+                            animate="to"
+                            exit="exit"
+                        />
+                    ) : null}
+                </AnimatePresence>
+
                 {/* Wrapper : relative 하위 컴포넌트 absolute, 반응형써서 전부 Wrapper에 맞추기. */}
-                <BackImg onClick={backgroundClickHandler}></BackImg>
+
                 <BackgroundOut />
                 {/* absolute를 Wrapper에 걸고 아래 IMG랑 그 아래 FileDisplay에 relative 걸어보기. */}
                 {/*File board*/}
@@ -680,6 +732,7 @@ function App() {
                         </WelcomeOverlay>
                     ) : null}
                 </AnimatePresence>
+                <BackImg onClick={backgroundClickHandler}></BackImg>
             </Wrapper>
         </DragDropContext>
     );
