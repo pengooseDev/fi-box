@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/fi-box/static/js/main.a246213c.js",
+    "main.js": "/fi-box/static/js/main.860e231b.js",
     "static/js/845.8c0244ed.chunk.js": "/fi-box/static/js/845.8c0244ed.chunk.js",
     "static/media/rain.mp3": "/fi-box/static/media/rain.b2aa233977f4c7383e1d.mp3",
     "static/media/9.gif": "/fi-box/static/media/9.76dffd26562ff48ee61d.gif",
@@ -50,6 +50,7 @@
     "static/media/bgPlayerClose.mp3": "/fi-box/static/media/bgPlayerClose.f0144b764e50c7e07bcc.mp3",
     "static/media/bgClose.mp3": "/fi-box/static/media/bgClose.79a4378318302395dc75.mp3",
     "static/media/mouseDefault.cur": "/fi-box/static/media/mouseDefault.99a8a4ff3bf5491ed963.cur",
+    "static/media/pointerDefault.cur": "/fi-box/static/media/pointerDefault.8336b38e8b37f74a7a5e.cur",
     "static/media/onDown.mp3": "/fi-box/static/media/onDown.ba65c8fb63df3ae116ed.mp3",
     "static/media/onUpClose.mp3": "/fi-box/static/media/onUpClose.1865de45828eeb9d3453.mp3",
     "static/media/onUpOpen.mp3": "/fi-box/static/media/onUpOpen.72bdf561674001351f28.mp3",
@@ -57,10 +58,10 @@
     "static/media/playerUpClose.mp3": "/fi-box/static/media/playerUpClose.af558a961b27416039f4.mp3",
     "static/media/playerUpOpen.mp3": "/fi-box/static/media/playerUpOpen.4dd28713c112b2390250.mp3",
     "index.html": "/fi-box/index.html",
-    "main.a246213c.js.map": "/fi-box/static/js/main.a246213c.js.map",
+    "main.860e231b.js.map": "/fi-box/static/js/main.860e231b.js.map",
     "845.8c0244ed.chunk.js.map": "/fi-box/static/js/845.8c0244ed.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.a246213c.js"
+    "static/js/main.860e231b.js"
   ]
 }
