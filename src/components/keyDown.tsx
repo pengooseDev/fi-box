@@ -98,5 +98,3 @@ const Perc = () => {
 
     return <PercWrapper onKeyDown={percHandler}>123</PercWrapper>;
 };
-
-//원래대로 돌리;기

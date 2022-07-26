@@ -4,6 +4,8 @@ import { IDragabbleLpProps } from "../atoms";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { lpState, lpTheme } from "../atoms";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
 
 /* LpImg */
 import lp1Img from "../assets/img/lp1.png";
@@ -41,7 +43,7 @@ const LpClose = styled.div`
     border-radius: 3px;
 
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 

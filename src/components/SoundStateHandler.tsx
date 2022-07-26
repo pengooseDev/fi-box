@@ -4,6 +4,8 @@ import styled, { keyframes, css } from "styled-components";
 import React from "react";
 import { queueObject } from "./soundFunc";
 import { welcomeDisplayAtom } from "../atoms";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
 
 const VolumeInput = styled.input.attrs({
     type: "range",
@@ -36,14 +38,14 @@ const VolumeInput = styled.input.attrs({
         background: rgba(255, 255, 255, 0.9);
         border: solid rgba(111, 111, 111, 0.3) 1px;
         border-radius: 2px;
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
         box-shadow: -100.5vw 0 0 100vw rgba(232, 19, 169, 0.75);
     }
 
     ::-webkit-slider-runnable-track {
         width: 100%;
         height: 100%;
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
         border-radius: 5px;
         background: rgba(133, 133, 133, 0.4);
     }

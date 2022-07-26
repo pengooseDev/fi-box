@@ -3,12 +3,15 @@ import useSound from "use-sound";
 import catSoundSFX4 from "../assets/audio/cat/cat4.mp3";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
 
 //img
 import lofiCat from "../assets/img/cat.gif";
 
 /* Cat */
 const LoFiCatContainer = styled(motion.img)`
+    z-index: 1;
     position: absolute;
     width: 9.8%;
     bottom: 19.4%;
@@ -22,7 +25,7 @@ const LoFiCatContainer = styled(motion.img)`
     -o-user-drag: none;
     user-drag: none;
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 

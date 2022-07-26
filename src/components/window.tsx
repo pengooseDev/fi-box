@@ -8,6 +8,8 @@ import React from "react";
 import useSound from "use-sound";
 import windowClose from "../assets/audio/windowClose.mp3";
 import windowOpen from "../assets/audio/windowOpen.mp3";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
 
 const WindowWrapper = styled.div`
     position: absolute;
@@ -81,7 +83,7 @@ const WindowDisplayToggle = styled.div`
     -o-user-drag: none;
     user-drag: none;
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 
@@ -95,13 +97,13 @@ const ExitComp = styled.div`
     border-radius: 15px;
     transform: rotateZ(-15deg);
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 
 const NicoAnchor = styled.a`
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 

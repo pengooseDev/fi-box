@@ -91,8 +91,10 @@ body, html {
 };
 
 a {
-    cursor: url(${mouseImg}) 6 6, url(${mouseCur}) 6 6, auto
-};
+    cursor: url(${mouseImg}) 6 6, url(${mouseCur}) 6 6, auto;
+}
+;
+
 
 * { 
     user-select:none;

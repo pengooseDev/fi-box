@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
 
 export const WelcomeOverlayToggle = styled.div`
     z-index: 2;
@@ -9,7 +11,7 @@ export const WelcomeOverlayToggle = styled.div`
     height: 100%;
     width: 100%;
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 

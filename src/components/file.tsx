@@ -4,6 +4,9 @@ import fileImg from "../assets/img/file.gif";
 import lpPlayerGif from "../assets/img/lp.gif";
 import { motion } from "framer-motion";
 
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
+
 /* 여기서부터 File, LP판 Components */
 export const FileImg = styled.img.attrs({ src: fileImg })`
     position: absolute;
@@ -26,7 +29,7 @@ export const FileImg = styled.img.attrs({ src: fileImg })`
     filter: drop-shadow(3px 3px 7px rgba(243, 81, 81, 1));
     :hover {
         animation: ${hoverAnimation} infinite 2.5s;
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
         filter: drop-shadow(10px 10px 0px rgba(243, 81, 81, 1));
     }
 `;
@@ -86,7 +89,7 @@ export const LpPlayerInteractive = styled.img.attrs({ src: lpPlayerGif })`
     user-drag: none;
 
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 

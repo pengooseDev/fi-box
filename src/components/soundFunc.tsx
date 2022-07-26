@@ -6,6 +6,9 @@ import mel4SFX from "../assets/audio/lp/lp4.mp3";
 import mel5SFX from "../assets/audio/lp/lp5.mp3";
 import mel6SFX from "../assets/audio/lp/lp6.mp3";
 import styled from "styled-components";
+import pointerImg from "../assets/img/pointerDefault.png";
+import pointerCur from "../assets/img/pointerDefault.cur";
+
 /* Ambience */
 import rainAmbience from "../assets/audio/ambience/rain.mp3";
 import { ambienceToggle } from "../ambienceAtom";
@@ -50,7 +53,7 @@ const Mute = styled.img.attrs({ src: muteRain })`
     border-radius: 60px 60px 20px 20px;
     transition: 0.2s ease-in-out;
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 
@@ -65,7 +68,7 @@ const UnMute = styled.img.attrs({ src: rain })`
     transition: 0.2s ease-in-out;
     border-radius: 60px 60px 20px 20px;
     :hover {
-        cursor: pointer;
+        cursor: url(${pointerImg}) 6 6, url(${pointerCur}) 6 6, auto;
     }
 `;
 
